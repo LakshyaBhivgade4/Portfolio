@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lakshya Bhivgade — Creative Engineer. A digital street art exhibition portfolio. B.Tech CSE, Cyber Security, AI/ML.">
+    <meta name="author" content="Lakshya Bhivgade">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>LAKSHYA BHIVGADE — Creative Engineer</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- GLOBAL OVERLAYS                                         -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div id="noise-overlay" aria-hidden="true"></div>
+    <div id="scanline-overlay" aria-hidden="true"></div>
+    <div id="crt-vignette" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- INTRO SEQUENCE                                          -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div id="intro-overlay">
+        <div id="intro-screen">
+            <!-- CRT Boot Lines -->
+            <div id="intro-boot">
+                <span class="boot-line" data-delay="0">C:\LAKSHYA> SYSTEM.BOOT</span>
+                <span class="boot-line" data-delay="1">LOADING CREATIVE_ENGINE.exe...</span>
+                <span class="boot-line" data-delay="2">INITIALIZING PORTFOLIO_v2.0...</span>
+                <span class="boot-line" data-delay="3">████████████████████████ <span class="boot-ok">OK</span></span>
+            </div>
+            <!-- Monogram -->
+            <svg id="intro-monogram" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="LB Monogram">
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central"
+                      font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="140"
+                      stroke="#CDFF00" stroke-width="2" fill="none" class="monogram-text">LB</text>
+            </svg>
+            <!-- Kinetic Words -->
+            <div id="intro-words">
+                <span class="intro-word" data-speed="fast">CREATIVE</span>
+                <span class="intro-word" data-speed="medium">ENGINEER</span>
+                <span class="intro-word" data-speed="slow">BUILDER</span>
+            </div>
+        </div>
+        <!-- Paint Swipe Reveal -->
+        <div id="intro-swipe">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="swipe-svg">
+                <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="#0a0a0a" class="swipe-path"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- CUSTOM CURSOR                                           -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-follower" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- NAVIGATION                                              -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <nav id="nav">
+        <a href="#home" class="nav-logo" data-magnetic>
+            <span class="nav-logo-bracket">[</span>
+            <span class="nav-logo-text">LB</span>
+            <span class="nav-logo-bracket">]</span>
+        </a>
+        <div class="nav-center">
+            <span class="nav-status" id="nav-status">SYS.ONLINE</span>
+            <span class="nav-divider">|</span>
+            <span class="nav-time" id="nav-time"></span>
+        </div>
+        <button class="nav-menu-btn" id="menu-toggle" data-magnetic aria-label="Toggle navigation menu">
+            <span class="menu-btn-line"></span>
+            <span class="menu-btn-line"></span>
+            <span class="menu-btn-label">MENU</span>
+        </button>
+    </nav>
+
+    <!-- Full-Screen Menu Overlay -->
+    <div id="menu-overlay" aria-hidden="true">
+        <div class="menu-bg-grid" aria-hidden="true"></div>
+        <div class="menu-inner">
+            <div class="menu-header">
+                <span class="menu-header-label">NAVIGATION.SYS</span>
+            </div>
+            <div class="menu-links">
+                <a href="#home" class="menu-link" data-index="01">
+                    <span class="menu-link-index">01/</span>
+                    <span class="menu-link-text" data-text="HOME">HOME</span>
+                    <span class="menu-link-arrow">→</span>
+                </a>
+                <a href="#about" class="menu-link" data-index="02">
+                    <span class="menu-link-index">02/</span>
+                    <span class="menu-link-text" data-text="ABOUT">ABOUT</span>
+                    <span class="menu-link-arrow">→</span>
+                </a>
+                <a href="#skills" class="menu-link" data-index="03">
+                    <span class="menu-link-index">03/</span>
+                    <span class="menu-link-text" data-text="SKILLS">SKILLS</span>
+                    <span class="menu-link-arrow">→</span>
+                </a>
+                <a href="#creations" class="menu-link" data-index="04">
+                    <span class="menu-link-index">04/</span>
+                    <span class="menu-link-text" data-text="CREATIONS">CREATIONS</span>
+                    <span class="menu-link-arrow">→</span>
+                </a>
+                <a href="#footer" class="menu-link" data-index="05">
+                    <span class="menu-link-index">05/</span>
+                    <span class="menu-link-text" data-text="CONTACT">CONTACT</span>
+                    <span class="menu-link-arrow">→</span>
+                </a>
+            </div>
+            <div class="menu-footer">
+                <span class="menu-footer-line">LAKSHYA BHIVGADE © 2026</span>
+                <span class="menu-footer-line">CREATIVE ENGINEER</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- MAIN CONTENT                                            -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <main id="main-content">
+
+        <!-- ───────────────────── HOME ───────────────────── -->
+        <section id="home" class="section section-home">
+            <div class="home-content">
+                <!-- Hero Typography -->
+                <div class="home-title-wrap">
+                    <h1 class="home-name home-name--outline" data-split-text aria-label="Lakshya">LAKSHYA</h1>
+                    <h1 class="home-name home-name--filled" data-split-text aria-label="Bhivgade">BHIVGADE</h1>
+                </div>
+
+                <!-- Meta Info -->
+                <div class="home-meta">
+                    <div class="home-vertical">
+                        <span>CREATIVE</span>
+                        <span>ENGINEER</span>
+                        <span class="home-vertical-accent">×</span>
+                        <span>2026</span>
+                    </div>
+                    <div class="home-tagline">
+                        <span class="tagline-item">B.Tech CSE</span>
+                        <span class="tagline-slash">/</span>
+                        <span class="tagline-item">Cyber Security</span>
+                        <span class="tagline-slash">/</span>
+                        <span class="tagline-item">AI-ML</span>
+                    </div>
+                </div>
+
+                <!-- Graffiti / Retro Decorations -->
+                <div class="home-decorations" aria-hidden="true">
+                    <div class="home-spray"></div>
+                    <div class="home-sticker">
+                        <span class="sticker-tape"></span>
+                        <span class="sticker-body">
+                            <span class="sticker-text">EST.</span>
+                            <span class="sticker-year">2026</span>
+                        </span>
+                    </div>
+                    <div class="home-crosses">
+                        <span class="cross" style="--x: 15%; --y: 20%; --r: 12deg;">×</span>
+                        <span class="cross" style="--x: 85%; --y: 35%; --r: -8deg;">×</span>
+                        <span class="cross" style="--x: 70%; --y: 75%; --r: 25deg;">×</span>
+                        <span class="cross" style="--x: 25%; --y: 80%; --r: -15deg;">×</span>
+                    </div>
+                    <div class="home-grid-overlay"></div>
+                    <div class="home-halftone"></div>
+                    <!-- Retro window decoration -->
+                    <div class="home-retro-window">
+                        <div class="retro-window-chrome">
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-title">identity.exe</span>
+                        </div>
+                        <div class="retro-window-body">
+                            <span class="retro-line">> CREATIVE_ENGINEER</span>
+                            <span class="retro-line">> STATUS: BUILDING</span>
+                            <span class="retro-line retro-blink">> _</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marquee -->
+            <div class="marquee-strip">
+                <div class="marquee-track" aria-hidden="true">
+                    <span class="marquee-text">DESIGN — CODE — CREATE — BREAK — REPEAT —&nbsp;</span>
+                    <span class="marquee-text">DESIGN — CODE — CREATE — BREAK — REPEAT —&nbsp;</span>
+                    <span class="marquee-text">DESIGN — CODE — CREATE — BREAK — REPEAT —&nbsp;</span>
+                    <span class="marquee-text">DESIGN — CODE — CREATE — BREAK — REPEAT —&nbsp;</span>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <span class="scroll-indicator-text">SCROLL</span>
+                <span class="scroll-indicator-line"></span>
+            </div>
+        </section>
+
+        <!-- ───────────────────── ABOUT ───────────────────── -->
+        <section id="about" class="section section-about">
+            <!-- Section Header with Retro Chrome -->
+            <div class="about-header">
+                <div class="section-window-chrome">
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-title">about_lakshya.exe</span>
+                </div>
+                <h2 class="about-title section-title" data-split-text>ABOUT</h2>
+            </div>
+
+            <!-- 01 — IDENTITY -->
+            <div class="about-block about-identity" data-scroll-reveal="slide-up">
+                <div class="about-block-header">
+                    <span class="about-number">01</span>
+                    <span class="about-label">IDENTITY</span>
+                    <span class="about-line"></span>
+                </div>
+                <div class="about-content identity-layout">
+                    <div class="identity-stack">
+                        <span class="identity-word" data-scroll-reveal="char">CREATIVE</span>
+                        <span class="identity-word" data-scroll-reveal="char">ENGINEER</span>
+                        <span class="identity-word identity-word--accent" data-scroll-reveal="char">THINKER</span>
+                        <span class="identity-word" data-scroll-reveal="char">BUILDER</span>
+                        <span class="identity-word identity-word--outline" data-scroll-reveal="char">BREAKER</span>
+                    </div>
+                    <div class="identity-photo" data-scroll-reveal="rotate">
+                        <div class="retro-window-chrome">
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-title">profile.jpg</span>
+                        </div>
+                        <div class="photo-frame-body">
+                            <!-- Replace photo.jpg with your own photo later -->
+                            <img src="photo.jpg" alt="Lakshya Bhivgade" class="identity-img" />
+                            <div class="photo-scanlines" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 02 — BIO / DOSSIER -->
+            <div class="about-block about-bio" data-scroll-reveal="slide-up">
+                <div class="about-block-header">
+                    <span class="about-number">02</span>
+                    <span class="about-label">DOSSIER</span>
+                    <span class="about-line"></span>
+                </div>
+                <div class="about-content">
+                    <div class="bio-terminal">
+                        <div class="retro-window-chrome">
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-title">bio.exe — CLASSIFIED</span>
+                        </div>
+                        <div class="bio-body">
+                            <!-- Typing command line -->
+                            <div class="bio-log">
+                                <span class="bio-prompt">C:\LAKSHYA></span>
+                                <span class="bio-cmd" id="bio-typing"></span>
+                                <span class="retro-blink">_</span>
+                            </div>
+
+                            <!-- Two column: bio + data -->
+                            <div class="bio-grid">
+                                <!-- Left: Bio text -->
+                                <div class="bio-left">
+                                    <p class="bio-text">
+                                        I'm <span class="text-accent">Lakshya Bhivgade</span> — a creative engineer 
+                                        who lives at the intersection of <span class="text-accent">Cyber Security</span>, 
+                                        <span class="text-accent">AI &amp; Machine Learning</span>, and 
+                                        <span class="text-accent">Visual Storytelling</span>.
+                                    </p>
+                                    <p class="bio-text bio-text--secondary">
+                                        I don't just write code — I craft digital experiences 
+                                        that are bold, secure, and intelligent. Currently pursuing my 
+                                        <span class="text-accent">B.Tech in Computer Science</span> at 
+                                        <span class="text-accent">Vel Tech University</span>.
+                                    </p>
+
+                                    <!-- Resume download -->
+                                    <div class="bio-resume">
+                                        <div class="resume-cmd">
+                                            <span class="bio-prompt">></span>
+                                            <span class="resume-text">download resume.pdf</span>
+                                        </div>
+                                        <a href="resume.pdf" download class="resume-btn" data-magnetic>
+                                            <span class="resume-icon">&#8595;</span>
+                                            <span class="resume-label">DOWNLOAD CV</span>
+                                            <span class="resume-size">[ PDF ]</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Data card -->
+                                <div class="bio-right">
+                                    <!-- Large counters -->
+                                    <div class="bio-counters">
+                                        <div class="bio-counter">
+                                            <span class="counter-number text-accent">3</span>
+                                            <span class="counter-label">YEAR</span>
+                                        </div>
+                                        <div class="bio-counter">
+                                            <span class="counter-number">10+</span>
+                                            <span class="counter-label">PROJECTS</span>
+                                        </div>
+                                        <div class="bio-counter">
+                                            <span class="counter-number">5+</span>
+                                            <span class="counter-label">SKILLS</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Degree progress -->
+                                    <div class="bio-progress-wrap">
+                                        <div class="bio-progress-header">
+                                            <span class="bio-progress-label">DEGREE_COMPLETION</span>
+                                            <span class="bio-progress-pct text-accent">75%</span>
+                                        </div>
+                                        <div class="bio-progress-bar">
+                                            <div class="bio-progress-fill" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Stats list -->
+                                    <div class="bio-data-list">
+                                        <div class="bio-data-row">
+                                            <span class="bio-data-key">UNIVERSITY</span>
+                                            <span class="bio-data-val">Vel Tech</span>
+                                        </div>
+                                        <div class="bio-data-row">
+                                            <span class="bio-data-key">DEGREE</span>
+                                            <span class="bio-data-val">B.Tech CSE</span>
+                                        </div>
+                                        <div class="bio-data-row">
+                                            <span class="bio-data-key">LOCATION</span>
+                                            <span class="bio-data-val">India</span>
+                                        </div>
+                                        <div class="bio-data-row">
+                                            <span class="bio-data-key">STATUS</span>
+                                            <span class="bio-data-val"><span class="status-dot"></span> Active</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Interests -->
+                            <div class="bio-interests">
+                                <span class="bio-interest-label">> INTERESTS ::</span>
+                                <div class="bio-interest-tags">
+                                    <span class="bio-tag">CYBER SECURITY</span>
+                                    <span class="bio-tag">AI / ML</span>
+                                    <span class="bio-tag">VIDEO EDITING</span>
+                                    <span class="bio-tag">CREATIVE TECH</span>
+                                    <span class="bio-tag">UI DESIGN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03 — VISION -->
+            <div class="about-block about-vision" data-scroll-reveal="mask">
+                <div class="about-block-header">
+                    <span class="about-number">03</span>
+                    <span class="about-label">VISION</span>
+                    <span class="about-line"></span>
+                </div>
+                <div class="about-content vision-split">
+                    <div class="vision-left">
+                        <span class="vision-big-number">02</span>
+                    </div>
+                    <div class="vision-right">
+                        <p class="vision-text">Building at the intersection of <em class="text-accent">security</em>, <em class="text-accent">intelligence</em>, and <em class="text-accent">creativity</em>.</p>
+                        <p class="vision-subtext">Not just writing code — engineering experiences that matter.</p>
+                        <div class="vision-rule"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 04 — MINDSET -->
+            <div class="about-block about-mindset" data-scroll-reveal="rotate">
+                <div class="about-block-header">
+                    <span class="about-number">04</span>
+                    <span class="about-label">MINDSET</span>
+                    <span class="about-line"></span>
+                </div>
+                <div class="about-content mindset-noise">
+                    <span class="mindset-line">Break things.</span>
+                    <span class="mindset-line">Learn things.</span>
+                    <span class="mindset-line mindset-line--accent">Build better things.</span>
+                </div>
+            </div>
+
+            <!-- 05 — MISSION -->
+            <div class="about-block about-mission" data-scroll-reveal="slide-left">
+                <div class="about-block-header">
+                    <span class="about-number">05</span>
+                    <span class="about-label">MISSION</span>
+                    <span class="about-line"></span>
+                </div>
+                <div class="about-content">
+                    <div class="mission-ticker">
+                        <div class="ticker-track">
+                            <span class="ticker-text">TO CREATE TECHNOLOGY THAT MATTERS — NOT JUST CODE — EXPERIENCES — SOLUTIONS — IMPACT —&nbsp;</span>
+                            <span class="ticker-text">TO CREATE TECHNOLOGY THAT MATTERS — NOT JUST CODE — EXPERIENCES — SOLUTIONS — IMPACT —&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 06 — PHILOSOPHY -->
+            <div class="about-block about-philosophy" data-scroll-reveal="scale">
+                <div class="about-block-header">
+                    <span class="about-number">06</span>
+                    <span class="about-label">PHILOSOPHY</span>
+                    <span class="about-line"></span>
+                </div>
+                <div class="about-content philosophy-quote-wrap">
+                    <span class="quote-mark quote-mark--open">&ldquo;</span>
+                    <blockquote class="philosophy-quote" id="random-quote">Loading...</blockquote>
+                    <span class="quote-mark quote-mark--close">&rdquo;</span>
+                    <span class="philosophy-author" id="quote-author"></span>
+                </div>
+            </div>
+
+            <!-- 07 — TIMELINE -->
+            <div class="about-block about-timeline" data-scroll-reveal="slide-up">
+                <div class="about-block-header">
+                    <span class="about-number">07</span>
+                    <span class="about-label">TIMELINE</span>
+                    <span class="about-line"></span>
+                </div>
+                <div class="about-content">
+                    <!-- Progress header -->
+                    <div class="tl-header">
+                        <span class="tl-header-label">JOURNEY.LOG</span>
+                        <span class="tl-header-pct">80% COMPLETE</span>
+                    </div>
+                    <div class="tl-progress-outer">
+                        <div class="tl-progress-fill" style="width: 80%"></div>
+                    </div>
+
+                    <div class="tl-track">
+                        <!-- Track line -->
+                        <div class="tl-line" aria-hidden="true"></div>
+
+                        <!-- 2022 -->
+                        <div class="tl-entry" data-scroll-reveal="slide-up">
+                            <div class="tl-node"><span class="tl-node-ring"></span></div>
+                            <div class="tl-content">
+                                <div class="tl-year-badge">2022</div>
+                                <h4 class="tl-title">init btech <span class="text-accent">--branch="CSE"</span></h4>
+                                <p class="tl-desc">Entered the matrix. First lines of code. First broken builds. The beginning of something dangerous.</p>
+                                <div class="tl-tags">
+                                    <span class="tl-tag-pill">C</span>
+                                    <span class="tl-tag-pill">HTML</span>
+                                    <span class="tl-tag-pill">CSS</span>
+                                </div>
+                                <div class="tl-xp">
+                                    <span class="tl-xp-label">XP</span>
+                                    <div class="tl-xp-bar"><div class="tl-xp-fill" style="width: 20%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2023 -->
+                        <div class="tl-entry" data-scroll-reveal="slide-up">
+                            <div class="tl-node"><span class="tl-node-ring"></span></div>
+                            <div class="tl-content">
+                                <div class="tl-year-badge">2023</div>
+                                <h4 class="tl-title">discover <span class="text-accent">--passion="CyberSec, AI"</span></h4>
+                                <p class="tl-desc">Broke things. Learned things. Found the intersection of security and intelligence. No turning back.</p>
+                                <div class="tl-tags">
+                                    <span class="tl-tag-pill">Python</span>
+                                    <span class="tl-tag-pill">Networking</span>
+                                    <span class="tl-tag-pill">Linux</span>
+                                </div>
+                                <div class="tl-xp">
+                                    <span class="tl-xp-label">XP</span>
+                                    <div class="tl-xp-bar"><div class="tl-xp-fill" style="width: 40%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2024 -->
+                        <div class="tl-entry" data-scroll-reveal="slide-up">
+                            <div class="tl-node"><span class="tl-node-ring"></span></div>
+                            <div class="tl-content">
+                                <div class="tl-year-badge">2024</div>
+                                <h4 class="tl-title">deep-dive <span class="text-accent">--into="ML, Python"</span></h4>
+                                <p class="tl-desc">Models trained. Brain upgraded. Built projects that actually solve problems.</p>
+                                <div class="tl-tags">
+                                    <span class="tl-tag-pill">TensorFlow</span>
+                                    <span class="tl-tag-pill">ML</span>
+                                    <span class="tl-tag-pill">Data</span>
+                                </div>
+                                <div class="tl-xp">
+                                    <span class="tl-xp-label">XP</span>
+                                    <div class="tl-xp-bar"><div class="tl-xp-fill" style="width: 60%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2025 -->
+                        <div class="tl-entry" data-scroll-reveal="slide-up">
+                            <div class="tl-node"><span class="tl-node-ring"></span></div>
+                            <div class="tl-content">
+                                <div class="tl-year-badge">2025</div>
+                                <h4 class="tl-title">build <span class="text-accent">--mode="creative"</span></h4>
+                                <p class="tl-desc">Shipping creative digital experiences. Merging art and engineering into something new.</p>
+                                <div class="tl-tags">
+                                    <span class="tl-tag-pill">JS</span>
+                                    <span class="tl-tag-pill">GSAP</span>
+                                    <span class="tl-tag-pill">UI/UX</span>
+                                </div>
+                                <div class="tl-xp">
+                                    <span class="tl-xp-label">XP</span>
+                                    <div class="tl-xp-bar"><div class="tl-xp-fill" style="width: 80%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2026 — NOW -->
+                        <div class="tl-entry tl-entry--now" data-scroll-reveal="slide-up">
+                            <div class="tl-node tl-node--now">
+                                <span class="tl-node-ring"></span>
+                                <span class="tl-node-pulse"></span>
+                            </div>
+                            <div class="tl-content tl-content--now">
+                                <div class="tl-year-badge tl-year-badge--now">2026</div>
+                                <h4 class="tl-title">ship <span class="text-accent">--ideas="worth remembering"</span> <span class="retro-blink">_</span></h4>
+                                <p class="tl-desc">Final year. The canvas is wide open. Every line of code, every pixel — intentional.</p>
+                                <div class="tl-tags">
+                                    <span class="tl-tag-pill tl-tag-pill--accent">AI-ML</span>
+                                    <span class="tl-tag-pill tl-tag-pill--accent">CyberSec</span>
+                                    <span class="tl-tag-pill tl-tag-pill--accent">Creative</span>
+                                </div>
+                                <div class="tl-xp">
+                                    <span class="tl-xp-label">XP</span>
+                                    <div class="tl-xp-bar tl-xp-bar--accent"><div class="tl-xp-fill tl-xp-fill--accent" style="width: 100%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───────────────────── SKILLS ───────────────────── -->
+        <section id="skills" class="section section-skills">
+            <div class="skills-header">
+                <div class="section-window-chrome">
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-dot"></span>
+                    <span class="chrome-title">skills_matrix.exe</span>
+                </div>
+                <h2 class="skills-title section-title" data-split-text>SKILLS</h2>
+                <p class="skills-subtitle">
+                    <span class="subtitle-bracket">[</span>
+                    drag. explore. interact.
+                    <span class="subtitle-bracket">]</span>
+                </p>
+            </div>
+
+            <div class="skills-wall" id="skills-wall">
+                <!-- Blueprint grid background rendered in CSS -->
+
+                <div class="skill-sticker" data-skill="java" data-category="LANG" data-rotation="-5">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">JAVA</span>
+                        <span class="sticker-category">LANG</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>Object-oriented. Reliable. Enterprise-grade.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker skill-sticker--focus" data-skill="python" data-category="LANG" data-rotation="3">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">PYTHON</span>
+                        <span class="sticker-category">LANG</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>AI/ML powerhouse. Scripting. Automation.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker" data-skill="c" data-category="LANG" data-rotation="7">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">C</span>
+                        <span class="sticker-category">LANG</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>Low-level. Memory. Systems programming.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker" data-skill="javascript" data-category="LANG" data-rotation="-8">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">JAVASCRIPT</span>
+                        <span class="sticker-category">LANG</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>The web's native language. Dynamic. Everywhere.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker" data-skill="html" data-category="WEB" data-rotation="4">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">HTML</span>
+                        <span class="sticker-category">WEB</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>Structure. Semantics. The backbone of the web.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker" data-skill="css" data-category="WEB" data-rotation="-3">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">CSS</span>
+                        <span class="sticker-category">WEB</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>Visual magic. Layouts. Animations. Art.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker skill-sticker--wide skill-sticker--focus" data-skill="cybersecurity" data-category="SEC" data-rotation="2">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">CYBER SECURITY</span>
+                        <span class="sticker-category">FOCUS</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>Defense. Offense. Digital fortress builder.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker" data-skill="videoediting" data-category="CREATE" data-rotation="-6">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">VIDEO EDITING</span>
+                        <span class="sticker-category">CREATE</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>Storytelling through motion. Cut. Flow. Feel.</span>
+                    </div>
+                </div>
+
+                <div class="skill-sticker" data-skill="canva" data-category="CREATE" data-rotation="5">
+                    <span class="sticker-tape"></span>
+                    <div class="sticker-front">
+                        <span class="sticker-label">CANVA</span>
+                        <span class="sticker-category">CREATE</span>
+                    </div>
+                    <div class="sticker-back">
+                        <span>Rapid visual design. Brand assets. Graphics.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───────────────────── CREATIONS ───────────────────── -->
+        <section id="creations" class="section section-creations">
+            <div class="creations-header">
+                <h2 class="creations-title section-title" data-split-text>CREATIONS</h2>
+                <p class="creations-subtitle">The exhibition is being curated.</p>
+            </div>
+
+            <div class="creations-gallery">
+                <!-- Poster 01 -->
+                <article class="creation-poster creation-poster--01" data-scroll-reveal="poster">
+                    <div class="poster-window-chrome">
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-title">project_01.exe</span>
+                    </div>
+                    <div class="poster-inner">
+                        <span class="poster-number">01</span>
+                        <div class="poster-spray" aria-hidden="true"></div>
+                        <h3 class="poster-title">Work in Progress.</h3>
+                        <p class="poster-desc">Something is brewing. Stay close.</p>
+                        <div class="poster-links">
+                            <a href="#" class="poster-link poster-link--disabled" aria-disabled="true" tabindex="-1">
+                                <span class="link-bracket">[</span>VIEW LIVE<span class="link-bracket">]</span>
+                            </a>
+                            <a href="#" class="poster-link poster-link--disabled" aria-disabled="true" tabindex="-1">
+                                <span class="link-bracket">[</span>SOURCE<span class="link-bracket">]</span>
+                            </a>
+                        </div>
+                        <div class="poster-status">
+                            <span class="status-dot"></span>
+                            <span>PENDING</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Poster 02 -->
+                <article class="creation-poster creation-poster--02" data-scroll-reveal="poster">
+                    <div class="poster-window-chrome">
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-title">project_02.exe</span>
+                    </div>
+                    <div class="poster-inner">
+                        <span class="poster-number">02</span>
+                        <div class="poster-rip" aria-hidden="true"></div>
+                        <h3 class="poster-title">Currently building ideas worth shipping.</h3>
+                        <p class="poster-desc">Every great creation starts as chaos.</p>
+                        <div class="poster-links">
+                            <a href="#" class="poster-link poster-link--disabled" aria-disabled="true" tabindex="-1">
+                                <span class="link-bracket">[</span>VIEW LIVE<span class="link-bracket">]</span>
+                            </a>
+                            <a href="#" class="poster-link poster-link--disabled" aria-disabled="true" tabindex="-1">
+                                <span class="link-bracket">[</span>SOURCE<span class="link-bracket">]</span>
+                            </a>
+                        </div>
+                        <div class="poster-status">
+                            <span class="status-dot"></span>
+                            <span>IN PROGRESS</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Poster 03 -->
+                <article class="creation-poster creation-poster--03" data-scroll-reveal="poster">
+                    <div class="poster-window-chrome">
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-dot"></span>
+                        <span class="chrome-title">project_03.exe</span>
+                    </div>
+                    <div class="poster-inner">
+                        <span class="poster-number">03</span>
+                        <div class="poster-glitch" aria-hidden="true"></div>
+                        <h3 class="poster-title">Next creation loading<span class="blink-cursor">...</span></h3>
+                        <p class="poster-desc">The canvas is ready. The code awaits.</p>
+                        <div class="poster-links">
+                            <a href="#" class="poster-link poster-link--disabled" aria-disabled="true" tabindex="-1">
+                                <span class="link-bracket">[</span>VIEW LIVE<span class="link-bracket">]</span>
+                            </a>
+                            <a href="#" class="poster-link poster-link--disabled" aria-disabled="true" tabindex="-1">
+                                <span class="link-bracket">[</span>SOURCE<span class="link-bracket">]</span>
+                            </a>
+                        </div>
+                        <div class="poster-status">
+                            <span class="status-dot"></span>
+                            <span>QUEUED</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ───────────────────── FOOTER / CONTACT ───────────────────── -->
+        <footer id="footer" class="section section-footer">
+            <div class="footer-content">
+                <div class="footer-line-draw" aria-hidden="true"></div>
+
+                <!-- Big heading -->
+                <h2 class="footer-question" data-split-text>PING ME</h2>
+                <p class="footer-cta">Let's build something unforgettable.</p>
+
+                <!-- Contact Grid — two boxes side by side -->
+                <div class="contact-grid" data-scroll-reveal="slide-up">
+
+                    <!-- LEFT: Ping Me -->
+                    <div class="contact-terminal">
+                        <div class="retro-window-chrome">
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-title">contact.exe</span>
+                        </div>
+                        <div class="contact-body">
+                            <a href="mailto:lakshyabhivgade@gmail.com" class="contact-row">
+                                <span class="contact-cmd">></span>
+                                <span class="contact-key">EMAIL</span>
+                                <span class="contact-sep">::</span>
+                                <span class="contact-val">lakshyabhivgade@gmail.com</span>
+                                <span class="contact-arrow">↗</span>
+                            </a>
+                            <a href="tel:+918462805580" class="contact-row">
+                                <span class="contact-cmd">></span>
+                                <span class="contact-key">PHONE</span>
+                                <span class="contact-sep">::</span>
+                                <span class="contact-val">+91 8462805580</span>
+                                <span class="contact-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/LakshyaBhivgade4" target="_blank" rel="noopener" class="contact-row">
+                                <span class="contact-cmd">></span>
+                                <span class="contact-key">GITHUB</span>
+                                <span class="contact-sep">::</span>
+                                <span class="contact-val">LakshyaBhivgade4</span>
+                                <span class="contact-arrow">↗</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/lakshya-bhivgade-4259aa369/" target="_blank" rel="noopener" class="contact-row">
+                                <span class="contact-cmd">></span>
+                                <span class="contact-key">LINKEDIN</span>
+                                <span class="contact-sep">::</span>
+                                <span class="contact-val">lakshya-bhivgade</span>
+                                <span class="contact-arrow">↗</span>
+                            </a>
+                            <div class="contact-status">
+                                <span class="status-dot"></span>
+                                <span>OPEN TO OPPORTUNITIES</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Send Message -->
+                    <div class="contact-terminal">
+                        <div class="retro-window-chrome">
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-dot"></span>
+                            <span class="chrome-title">message.exe</span>
+                        </div>
+                        <div class="contact-body">
+                            <form class="contact-form" id="contact-form" onsubmit="return sendMessage(event)">
+                                <div class="form-header">
+                                    <span class="contact-cmd">></span>
+                                    <span class="form-header-text">SEND_MESSAGE</span>
+                                </div>
+                                <div class="form-fields">
+                                    <input type="text" class="form-input" id="msg-name" placeholder="> your_name" required autocomplete="off">
+                                    <input type="email" class="form-input" id="msg-email" placeholder="> your_email" required autocomplete="off">
+                                    <textarea class="form-input form-textarea" id="msg-body" placeholder="> your_message" rows="4" required></textarea>
+                                    <button type="submit" class="form-submit" data-magnetic>
+                                        <span class="link-bracket">[</span>TRANSMIT<span class="link-bracket">]</span>
+                                    </button>
+                                </div>
+                                <div class="form-response" id="form-response"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Signature -->
+                <div class="footer-signature" aria-hidden="true">
+                    <svg viewBox="0 0 300 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="signature-svg">
+                        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central"
+                              font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="100"
+                              fill="#CDFF00" opacity="0.08" class="signature-text">LB</text>
+                    </svg>
+                </div>
+
+                <div class="footer-bottom">
+                    <span class="footer-credit">Handcrafted with obsession.</span>
+                    <span class="footer-divider">|</span>
+                    <span class="footer-year">© 2026</span>
+                    <span class="footer-divider">|</span>
+                    <span class="footer-sys">SYS.SHUTDOWN</span>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Floating Resume CTA -->
+    <a href="resume.pdf" download class="floating-resume" id="floating-resume" aria-label="Download Resume">
+        <span class="floating-resume-icon">↓</span>
+        <span class="floating-resume-text">RESUME</span>
+    </a>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- SCRIPTS                                                 -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="script.js"></script>
+</body>
+</html>
