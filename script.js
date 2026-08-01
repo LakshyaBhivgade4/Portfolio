@@ -571,34 +571,81 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 14. Contact Form — sendMessage (global scope for onsubmit)
-function sendMessage(e) {
+async function sendMessage(e) {
     e.preventDefault();
     const name = document.getElementById('msg-name').value.trim();
     const email = document.getElementById('msg-email').value.trim();
     const body = document.getElementById('msg-body').value.trim();
     const resp = document.getElementById('form-response');
     const form = document.getElementById('contact-form');
+    const submitBtn = form.querySelector('.form-submit');
 
     if (!name || !email || !body) {
         resp.textContent = '> ERROR: all fields required.';
         return false;
     }
 
-    // Mailto fallback — opens user's email client with pre-filled fields
-    const subject = encodeURIComponent(`Portfolio Message from ${name}`);
-    const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${body}`);
-    const mailtoLink = `mailto:lakshyabhivgade@gmail.com?subject=${subject}&body=${mailBody}`;
+    // 🔴 IMPORTANT: Paste your Google Apps Script Web App URL here 🔴
+    const GOOGLE_SCRIPT_URL = ""; 
 
-    resp.textContent = '> TRANSMITTING...';
-    
-    setTimeout(() => {
-        resp.textContent = '> MESSAGE_READY :: opening mail client...';
-        window.location.href = mailtoLink;
+    if (!GOOGLE_SCRIPT_URL) {
+        // Fallback to mailto if Google Script is not set up yet
+        const subject = encodeURIComponent(`Portfolio Message from ${name}`);
+        const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${body}`);
+        const mailtoLink = `mailto:lakshyabhivgade@gmail.com?subject=${subject}&body=${mailBody}`;
+        
+        resp.textContent = '> TRANSMITTING...';
         setTimeout(() => {
-            resp.textContent = '> TRANSMISSION COMPLETE ✓';
-            form.reset();
-        }, 1500);
-    }, 800);
+            resp.textContent = '> GOOGLE SHEET URL NOT SET :: falling back to mail client...';
+            window.location.href = mailtoLink;
+            setTimeout(() => {
+                resp.textContent = '> FALLBACK TRANSMISSION COMPLETE ✓';
+                form.reset();
+            }, 1500);
+        }, 800);
+        return false;
+    }
 
+    // Prepare data for Google Sheet
+    const formData = new FormData();
+    formData.append('Name', name);
+    formData.append('Email', email);
+    formData.append('Message', body);
+    formData.append('Timestamp', new Date().toLocaleString());
+
+    // Update UI to loading state
+    resp.style.color = '#ffbd2e'; // Yellow for processing
+    resp.textContent = '> TRANSMITTING TO SECURE SERVER...';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.5';
+
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors' // Required to avoid CORS issues with Google Apps Script
+        });
+
+        // Since no-cors hides the actual response status, we assume success if it didn't throw an error
+        resp.style.color = '#28c840'; // Green for success
+        resp.textContent = '> TRANSMISSION COMPLETE :: Data safely stored. ✓';
+        form.reset();
+
+    } catch (error) {
+        console.error('Error!', error.message);
+        resp.style.color = '#ff5f57'; // Red for error
+        resp.textContent = '> ERROR :: Connection failed. Try again later.';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        
+        // Reset color back to normal after 5 seconds
+        setTimeout(() => {
+            resp.style.color = '';
+            if (resp.textContent.includes('COMPLETE')) {
+                resp.textContent = '';
+            }
+        }, 5000);
+    }
     return false;
 }

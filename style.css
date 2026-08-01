@@ -1058,10 +1058,15 @@ body.menu-open #menu-overlay {
   color: #1a1a1a;
 }
 
-/* Fix for lime green accents disappearing on cream */
+/* Fix for lime green accents disappearing on cream - Highlighter effect */
 .bio-terminal .text-accent,
 .contact-terminal .text-accent {
-  color: #ff4444; /* Striking red for light background */
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  padding: 0 0.3rem;
+  border-radius: 2px;
+  display: inline-block;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Scanline overlay on bio - adjusted for light */
