@@ -36,30 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
             tl.progress(1);
         });
 
-        tl.to({}, { duration: 0.5 }) // a. Pause
+        tl.to({}, { duration: 0.1 }) // a. Pause
           // b. Boot lines
           .fromTo("#intro-boot .boot-line", 
               { opacity: 0, y: 10 },
-              { opacity: 1, y: 0, stagger: 0.4, duration: 0.1, ease: "steps(1)" }
+              { opacity: 1, y: 0, stagger: 0.05, duration: 0.05, ease: "steps(1)" }
           )
           // c. Fade out boot text
-          .to("#intro-boot", { opacity: 0, duration: 0.3 }, "+=0.5")
+          .to("#intro-boot", { opacity: 0, duration: 0.1 }, "+=0.1")
           // d. SVG Monogram draw
           .fromTo("#intro-monogram .monogram-text", 
               { strokeDasharray: "1000", strokeDashoffset: "1000" },
-              { strokeDashoffset: "0", duration: 1.5, ease: "power2.inOut" }
+              { strokeDashoffset: "0", duration: 0.4, ease: "power2.inOut" }
           )
-          .to("#intro-monogram .monogram-text", { textShadow: "0 0 20px #CDFF00", duration: 0.3, yoyo: true, repeat: 1 })
+          .to("#intro-monogram .monogram-text", { textShadow: "0 0 20px #CDFF00", duration: 0.1, yoyo: true, repeat: 1 })
           // e. Monogram fade out
-          .to("#intro-monogram", { opacity: 0, duration: 0.3 })
+          .to("#intro-monogram", { opacity: 0, duration: 0.1 })
           // f. Kinetic words
-          .fromTo("#intro-words .intro-word:nth-child(1)", { x: "-100vw", scale: 2, rotation: -45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, "words")
-          .fromTo("#intro-words .intro-word:nth-child(2)", { x: "100vw", scale: 0.5, rotation: 45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, "words+=0.1")
-          .fromTo("#intro-words .intro-word:nth-child(3)", { y: "100vh", scale: 1.5, rotation: 0, opacity: 0 }, { y: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, "words+=0.2")
-          .to("#intro-words .intro-word", { scale: 0, opacity: 0, stagger: 0.1, duration: 0.4, ease: "power2.in" }, "+=0.5")
+          .fromTo("#intro-words .intro-word:nth-child(1)", { x: "-100vw", scale: 2, rotation: -45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "expo.out" }, "words")
+          .fromTo("#intro-words .intro-word:nth-child(2)", { x: "100vw", scale: 0.5, rotation: 45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "expo.out" }, "words+=0.05")
+          .fromTo("#intro-words .intro-word:nth-child(3)", { y: "100vh", scale: 1.5, rotation: 0, opacity: 0 }, { y: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "expo.out" }, "words+=0.1")
+          .to("#intro-words .intro-word", { scale: 0, opacity: 0, stagger: 0.05, duration: 0.2, ease: "power2.in" }, "+=0.1")
           // g. Paint swipe
-          .to("#intro-swipe .swipe-path", { attr: { d: "M0,0 L100,0 L100,0 L0,0 Z" }, duration: 0.8, ease: "power4.inOut" }, "reveal")
-          .to(overlay, { opacity: 0, duration: 0.3 }, "reveal+=0.5");
+          .to("#intro-swipe .swipe-path", { attr: { d: "M0,0 L100,0 L100,0 L0,0 Z" }, duration: 0.3, ease: "power4.inOut" }, "reveal")
+          .to(overlay, { opacity: 0, duration: 0.2 }, "reveal+=0.1");
     };
 
     if (!prefersReducedMotion && typeof gsap !== 'undefined') {
@@ -242,13 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.from(split.chars, {
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 85%",
+                    start: "top 95%",
                 },
                 opacity: 0,
-                y: 40,
+                y: 20,
                 rotateX: -45,
-                stagger: 0.03,
-                duration: 0.8,
+                stagger: 0.01,
+                duration: 0.4,
                 ease: "back.out(1.5)"
             });
         });
@@ -258,24 +258,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!prefersReducedMotion && typeof gsap !== 'undefined') {
         document.querySelectorAll("[data-scroll-reveal]").forEach(el => {
             const type = el.getAttribute("data-scroll-reveal");
-            const triggerOpts = { trigger: el, start: "top 85%" };
+            const triggerOpts = { trigger: el, start: "top 95%" };
             
             if (type === "slide-up") {
-                gsap.from(el, { scrollTrigger: triggerOpts, y: 80, opacity: 0, duration: 1, ease: "power3.out" });
+                gsap.from(el, { scrollTrigger: triggerOpts, y: 40, opacity: 0, duration: 0.5, ease: "power3.out" });
             } else if (type === "mask") {
-                gsap.from(el, { scrollTrigger: triggerOpts, clipPath: "inset(100% 0 0 0)", duration: 1.2, ease: "expo.out" });
+                gsap.from(el, { scrollTrigger: triggerOpts, clipPath: "inset(100% 0 0 0)", duration: 0.6, ease: "expo.out" });
             } else if (type === "rotate") {
-                gsap.from(el, { scrollTrigger: triggerOpts, rotate: 5, opacity: 0, scale: 0.95, duration: 1, ease: "back.out(1.2)" });
+                gsap.from(el, { scrollTrigger: triggerOpts, rotate: 5, opacity: 0, scale: 0.95, duration: 0.5, ease: "back.out(1.2)" });
             } else if (type === "slide-left") {
-                gsap.from(el, { scrollTrigger: triggerOpts, x: -100, opacity: 0, duration: 1, ease: "power3.out" });
+                gsap.from(el, { scrollTrigger: triggerOpts, x: -50, opacity: 0, duration: 0.5, ease: "power3.out" });
             } else if (type === "scale") {
-                gsap.from(el, { scrollTrigger: triggerOpts, scale: 0.8, opacity: 0, duration: 1, ease: "back.out(1.5)" });
+                gsap.from(el, { scrollTrigger: triggerOpts, scale: 0.9, opacity: 0, duration: 0.5, ease: "back.out(1.5)" });
             } else if (type === "stagger") {
-                gsap.from(el.children, { scrollTrigger: triggerOpts, y: 40, opacity: 0, stagger: 0.15, duration: 0.8, ease: "power2.out" });
+                gsap.from(el.children, { scrollTrigger: triggerOpts, y: 20, opacity: 0, stagger: 0.05, duration: 0.4, ease: "power2.out" });
             } else if (type === "poster") {
-                gsap.from(el, { scrollTrigger: triggerOpts, y: 60, opacity: 0, scale: 0.95, stagger: 0.2, duration: 1, ease: "power3.out" });
+                gsap.from(el, { scrollTrigger: triggerOpts, y: 30, opacity: 0, scale: 0.95, stagger: 0.1, duration: 0.5, ease: "power3.out" });
             } else if (type === "char") { 
-                 gsap.from(el, { scrollTrigger: triggerOpts, y: 40, opacity: 0, duration: 0.8, ease: "power2.out" });
+                 gsap.from(el, { scrollTrigger: triggerOpts, y: 20, opacity: 0, duration: 0.4, ease: "power2.out" });
             }
         });
 
@@ -323,8 +323,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const footerSig = document.querySelector(".footer-signature");
         if (footerSig) {
-            gsap.from(footerSig, { scale: 0.5, opacity: 0, duration: 2, ease: "expo.out", scrollTrigger: { trigger: "#footer", start: "top 90%" }});
+            gsap.from(footerSig, { scale: 0.5, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: "#footer", start: "top 90%" }});
         }
+
+        // Fix for ScrollTrigger sometimes missing elements on dynamic load
+        window.addEventListener("load", () => {
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+            }
+        });
     }
 
     // 8. Marquee runs via CSS animation only — no JS overhead
