@@ -593,7 +593,7 @@ async function sendMessage(e) {
     }
 
     // 🔴 IMPORTANT: Paste your Google Apps Script Web App URL here 🔴
-    const GOOGLE_SCRIPT_URL = ""; 
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8t0gizaTcGSDSWPRYY5vIPPKByxW9NKLCuUUtKoIPUuIB3IXz1cHKxcLA2vHcNuyqKw/exec"; 
 
     if (!GOOGLE_SCRIPT_URL) {
         // Fallback to mailto if Google Script is not set up yet
