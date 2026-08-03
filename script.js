@@ -36,30 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
             tl.progress(1);
         });
 
-        tl.to({}, { duration: 0.1 }) // a. Pause
+        tl.to({}, { duration: 0.2 }) // a. Pause
           // b. Boot lines
           .fromTo("#intro-boot .boot-line", 
               { opacity: 0, y: 10 },
-              { opacity: 1, y: 0, stagger: 0.05, duration: 0.05, ease: "steps(1)" }
+              { opacity: 1, y: 0, stagger: 0.12, duration: 0.08, ease: "steps(1)" }
           )
           // c. Fade out boot text
-          .to("#intro-boot", { opacity: 0, duration: 0.1 }, "+=0.1")
+          .to("#intro-boot", { opacity: 0, duration: 0.2 }, "+=0.2")
           // d. SVG Monogram draw
           .fromTo("#intro-monogram .monogram-text", 
               { strokeDasharray: "1000", strokeDashoffset: "1000" },
-              { strokeDashoffset: "0", duration: 0.4, ease: "power2.inOut" }
+              { strokeDashoffset: "0", duration: 0.7, ease: "power2.inOut" }
           )
-          .to("#intro-monogram .monogram-text", { textShadow: "0 0 20px #CDFF00", duration: 0.1, yoyo: true, repeat: 1 })
+          .to("#intro-monogram .monogram-text", { textShadow: "0 0 20px #CDFF00", duration: 0.2, yoyo: true, repeat: 1 })
           // e. Monogram fade out
-          .to("#intro-monogram", { opacity: 0, duration: 0.1 })
+          .to("#intro-monogram", { opacity: 0, duration: 0.2 })
           // f. Kinetic words
-          .fromTo("#intro-words .intro-word:nth-child(1)", { x: "-100vw", scale: 2, rotation: -45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "expo.out" }, "words")
-          .fromTo("#intro-words .intro-word:nth-child(2)", { x: "100vw", scale: 0.5, rotation: 45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "expo.out" }, "words+=0.05")
-          .fromTo("#intro-words .intro-word:nth-child(3)", { y: "100vh", scale: 1.5, rotation: 0, opacity: 0 }, { y: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.2, ease: "expo.out" }, "words+=0.1")
-          .to("#intro-words .intro-word", { scale: 0, opacity: 0, stagger: 0.05, duration: 0.2, ease: "power2.in" }, "+=0.1")
+          .fromTo("#intro-words .intro-word:nth-child(1)", { x: "-100vw", scale: 2, rotation: -45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, "words")
+          .fromTo("#intro-words .intro-word:nth-child(2)", { x: "100vw", scale: 0.5, rotation: 45, opacity: 0 }, { x: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, "words+=0.08")
+          .fromTo("#intro-words .intro-word:nth-child(3)", { y: "100vh", scale: 1.5, rotation: 0, opacity: 0 }, { y: "0", scale: 1, rotation: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, "words+=0.16")
+          .to("#intro-words .intro-word", { scale: 0, opacity: 0, stagger: 0.08, duration: 0.3, ease: "power2.in" }, "+=0.2")
           // g. Paint swipe
-          .to("#intro-swipe .swipe-path", { attr: { d: "M0,0 L100,0 L100,0 L0,0 Z" }, duration: 0.3, ease: "power4.inOut" }, "reveal")
-          .to(overlay, { opacity: 0, duration: 0.2 }, "reveal+=0.1");
+          .to("#intro-swipe .swipe-path", { attr: { d: "M0,0 L100,0 L100,0 L0,0 Z" }, duration: 0.5, ease: "power4.inOut" }, "reveal")
+          .to(overlay, { opacity: 0, duration: 0.3 }, "reveal+=0.2");
     };
 
     if (!prefersReducedMotion && typeof gsap !== 'undefined') {

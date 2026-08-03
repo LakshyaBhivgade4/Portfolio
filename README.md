@@ -1,4 +1,4 @@
-# 💻 L.Bhivgade™ — Interactive Terminal Portfolio
+# 💻 LB™ — Interactive Terminal Portfolio
 
 Welcome to the source code of my personal portfolio website! This project is designed to be **bold, fearless, and premium**, combining a retro CRT/Terminal aesthetic with modern, smooth web animations.
 
