@@ -618,12 +618,12 @@ async function sendMessage(e) {
         return false;
     }
 
-    // Prepare data for Google Sheet
-    const formData = new FormData();
-    formData.append('Name', name);
-    formData.append('Email', email);
-    formData.append('Message', body);
-    formData.append('Timestamp', new Date().toLocaleString());
+    // Prepare data as URL-encoded string — required for Google Apps Script (FormData fails with no-cors)
+    const params = new URLSearchParams();
+    params.append('Name', name);
+    params.append('Email', email);
+    params.append('Message', body);
+    params.append('Timestamp', new Date().toLocaleString());
 
     // Update UI to loading state
     resp.style.color = '#ffbd2e'; // Yellow for processing
@@ -632,13 +632,14 @@ async function sendMessage(e) {
     submitBtn.style.opacity = '0.5';
 
     try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
+        await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            body: formData,
-            mode: 'no-cors' // Required to avoid CORS issues with Google Apps Script
+            body: params,
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
 
-        // Since no-cors hides the actual response status, we assume success if it didn't throw an error
+        // no-cors hides response — assume success if no network error thrown
         resp.style.color = '#28c840'; // Green for success
         resp.textContent = '> TRANSMISSION COMPLETE :: Data safely stored. ✓';
         form.reset();
