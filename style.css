@@ -2668,21 +2668,24 @@ body.menu-open #menu-overlay {
     font-size: 0.8rem;
   }
 
-  /* ── SKILLS — pasted-on-wall look on mobile ── */
+  /* ── SKILLS — detective corkboard wall on mobile ── */
   .skills-wall {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
     gap: 0.85rem;
-    padding: 2rem 0.75rem 2.5rem;
+    padding: 2.5rem 1rem 3rem;
     min-height: auto;
-    background: #2a1f14;
+    background: #8B6914;
     background-image:
-      radial-gradient(circle at 20% 30%, rgba(139,90,43,0.25) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(101,67,33,0.2) 0%, transparent 50%),
-      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="4" height="4" fill="%23241a0f"/><rect x="0" y="0" width="1" height="1" fill="%23301f10" opacity="0.5"/><rect x="2" y="2" width="1" height="1" fill="%23281809" opacity="0.3"/></svg>');
+      radial-gradient(ellipse at 15% 20%, rgba(180,130,60,0.4) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 75%, rgba(100,65,20,0.35) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 50%, rgba(150,100,40,0.2) 0%, transparent 70%),
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="6" height="6"><rect width="6" height="6" fill="%23956b1a"/><circle cx="1" cy="1" r="0.7" fill="%23b07820" opacity="0.4"/><circle cx="4" cy="3" r="0.5" fill="%237a5510" opacity="0.3"/><circle cx="2" cy="5" r="0.6" fill="%23c08825" opacity="0.25"/></svg>');
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.3);
+    border: 4px solid #5a3e0a;
     border-radius: 4px;
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
   }
 
   .skill-sticker {
@@ -2690,44 +2693,64 @@ body.menu-open #menu-overlay {
     min-width: 130px;
     max-width: 48%;
     min-height: 110px;
-    padding: 1.25rem 0.85rem;
-    box-shadow: 4px 4px 0 rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.4);
-    transform: rotate(var(--mob-rotation, -2deg)) !important;
+    padding: 1.5rem 0.85rem 1rem;
+    box-shadow: 4px 6px 12px rgba(0,0,0,0.5), 2px 2px 0 rgba(0,0,0,0.2);
+    /* JS sets the rotation — no CSS override needed */
     flex: 0 0 auto;
+    position: relative;
   }
 
-  /* Give each sticker a unique wall-pasted angle */
-  .skill-sticker:nth-child(1)  { --mob-rotation: -3deg; }
-  .skill-sticker:nth-child(2)  { --mob-rotation:  2deg; }
-  .skill-sticker:nth-child(3)  { --mob-rotation: -1deg; }
-  .skill-sticker:nth-child(4)  { --mob-rotation:  4deg; }
-  .skill-sticker:nth-child(5)  { --mob-rotation: -4deg; }
-  .skill-sticker:nth-child(6)  { --mob-rotation:  1deg; }
-  .skill-sticker:nth-child(7)  { --mob-rotation:  3deg; }
-  .skill-sticker:nth-child(8)  { --mob-rotation: -2deg; }
-  .skill-sticker:nth-child(9)  { --mob-rotation:  5deg; }
-  .skill-sticker:nth-child(10) { --mob-rotation: -3deg; }
-  .skill-sticker:nth-child(11) { --mob-rotation:  2deg; }
-  .skill-sticker:nth-child(12) { --mob-rotation: -5deg; }
+  /* Thumbtack pin dot at top of each sticker */
+  .skill-sticker::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ff6b6b, #cc0000);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,200,200,0.4);
+    z-index: 2;
+  }
 
-  /* Show tape strips again on mobile wall */
+  /* Vary pin colors by position */
+  .skill-sticker:nth-child(3n)::before  { background: radial-gradient(circle at 35% 35%, #ffdd44, #cc9900); }
+  .skill-sticker:nth-child(3n+2)::before { background: radial-gradient(circle at 35% 35%, #77ccff, #0055bb); }
+
+  /* Remove CSS rotation vars since JS handles it */
+  .skill-sticker:nth-child(1),
+  .skill-sticker:nth-child(2),
+  .skill-sticker:nth-child(3),
+  .skill-sticker:nth-child(4),
+  .skill-sticker:nth-child(5),
+  .skill-sticker:nth-child(6),
+  .skill-sticker:nth-child(7),
+  .skill-sticker:nth-child(8),
+  .skill-sticker:nth-child(9),
+  .skill-sticker:nth-child(10),
+  .skill-sticker:nth-child(11),
+  .skill-sticker:nth-child(12) { --mob-rotation: 0deg; }
+
+  /* Show tape strips on mobile wall */
   .skill-sticker .sticker-tape {
     display: block;
-    background: rgba(220, 210, 170, 0.45);
+    background: rgba(220, 210, 170, 0.5);
     width: 50px;
     height: 14px;
     top: -7px;
   }
 
   .skill-sticker:active {
-    transform: rotate(0deg) scale(1.05) !important;
-    box-shadow: 8px 8px 0 rgba(0,0,0,0.4);
-    z-index: 20;
+    transform: rotate(0deg) scale(1.08) !important;
+    box-shadow: 10px 12px 20px rgba(0,0,0,0.6);
+    z-index: 50;
   }
 
   .skill-sticker--wide {
     width: auto !important;
-    max-width: 100%;
+    max-width: 95%;
     flex: 0 0 95%;
   }
 

@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const rotation = sticker.getAttribute("data-rotation") || 0;
         const isMobile = window.innerWidth <= 768;
         
-        // Don't rotate on mobile — keep clean grid
+        // Use data-rotation on desktop, scrambled angles on mobile like a detective board
         if (!isMobile) {
             if(typeof gsap !== 'undefined') {
                 gsap.set(sticker, { rotation: rotation });
@@ -352,7 +352,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 sticker.style.transform = `rotate(${rotation}deg)`;
             }
         } else {
-            sticker.style.transform = 'none';
+            // Apply random-ish scramble on mobile - corkboard look
+            const mobAngles = [-8, 5, -3, 9, -6, 3, 7, -4, 11, -7, 4, -10, 6, -2, 8];
+            const idx = Array.from(stickers).indexOf(sticker);
+            const angle = mobAngles[idx % mobAngles.length];
+            sticker.style.transform = `rotate(${angle}deg)`;
+            sticker.setAttribute('data-mob-rotation', angle);
         }
 
         let isDragging = false;
