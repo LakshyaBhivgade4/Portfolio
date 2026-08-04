@@ -275,6 +275,15 @@ html {
   display: none !important;
 }
 
+/* Inverted cursor on skill stickers — lime green becomes dark, dark becomes lime */
+.skill-sticker:hover {
+  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M1,1 L1,13 L4,10 L7,15 L9,13 L6,9 L11,9 Z" fill="%23CDFF00" stroke="%23CDFF00" stroke-width="1.5" stroke-linejoin="miter"/><path d="M2,3 L2,11 L4.5,8.5 L7,13 L8,12.5 L5.5,8 L9.5,8 Z" fill="%230a0a0a"/></svg>') 1 1, grab;
+}
+
+.skill-sticker:active {
+  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M1,1 L1,13 L4,10 L7,15 L9,13 L6,9 L11,9 Z" fill="%23CDFF00" stroke="%23CDFF00" stroke-width="1.5" stroke-linejoin="miter"/><path d="M2,3 L2,11 L4.5,8.5 L7,13 L8,12.5 L5.5,8 L9.5,8 Z" fill="%230a0a0a"/></svg>') 8 2, grabbing;
+}
+
 @media (hover: none) {
   html {
     cursor: auto;
@@ -1800,14 +1809,30 @@ body.menu-open #menu-overlay {
 }
 
 .skill-sticker:hover {
-  transform: translateY(-8px) rotate(0deg);
+  transform: translateY(-8px) rotate(0deg) !important;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
   border-color: #1a1a1a;
   z-index: 10;
+  background-color: #1a1a1a;
+  color: #f5f0e8;
 }
 
-.skill-sticker:active {
-  cursor: grabbing;
+.skill-sticker:hover .sticker-label {
+  color: #CDFF00;
+}
+
+.skill-sticker:hover .sticker-category {
+  background: #CDFF00;
+  color: #1a1a1a;
+}
+
+.skill-sticker--focus:hover {
+  background-color: #f5f0e8;
+  color: #1a1a1a;
+}
+
+.skill-sticker--focus:hover .sticker-label {
+  color: #1a1a1a;
 }
 
 .skill-sticker--wide {
@@ -2643,43 +2668,72 @@ body.menu-open #menu-overlay {
     font-size: 0.8rem;
   }
 
-  /* ── SKILLS — clean grid, no rotation ── */
+  /* ── SKILLS — pasted-on-wall look on mobile ── */
   .skills-wall {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem 0.75rem 2rem;
     min-height: auto;
-    background-size: 30px 30px;
+    background: #2a1f14;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(139,90,43,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(101,67,33,0.2) 0%, transparent 50%),
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="4" height="4" fill="%23241a0f"/><rect x="0" y="0" width="1" height="1" fill="%23301f10" opacity="0.5"/><rect x="2" y="2" width="1" height="1" fill="%23281809" opacity="0.3"/></svg>');
+    border-radius: 4px;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
   }
 
   .skill-sticker {
-    width: 100% !important;
-    max-width: none;
+    width: auto !important;
+    min-width: 120px;
+    max-width: 48%;
     min-height: 80px;
     padding: 1rem 0.75rem;
-    transform: none !important;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.4);
+    transform: rotate(var(--mob-rotation, -2deg)) !important;
+    flex: 0 0 auto;
   }
 
-  .skill-sticker:hover {
-    transform: none !important;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12);
+  /* Give each sticker a unique wall-pasted angle */
+  .skill-sticker:nth-child(1)  { --mob-rotation: -3deg; }
+  .skill-sticker:nth-child(2)  { --mob-rotation:  2deg; }
+  .skill-sticker:nth-child(3)  { --mob-rotation: -1deg; }
+  .skill-sticker:nth-child(4)  { --mob-rotation:  4deg; }
+  .skill-sticker:nth-child(5)  { --mob-rotation: -4deg; }
+  .skill-sticker:nth-child(6)  { --mob-rotation:  1deg; }
+  .skill-sticker:nth-child(7)  { --mob-rotation:  3deg; }
+  .skill-sticker:nth-child(8)  { --mob-rotation: -2deg; }
+  .skill-sticker:nth-child(9)  { --mob-rotation:  5deg; }
+  .skill-sticker:nth-child(10) { --mob-rotation: -3deg; }
+  .skill-sticker:nth-child(11) { --mob-rotation:  2deg; }
+  .skill-sticker:nth-child(12) { --mob-rotation: -5deg; }
+
+  /* Show tape strips again on mobile wall */
+  .skill-sticker .sticker-tape {
+    display: block;
+    background: rgba(220, 210, 170, 0.45);
+    width: 50px;
+    height: 14px;
+    top: -7px;
+  }
+
+  .skill-sticker:active {
+    transform: rotate(0deg) scale(1.05) !important;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.4);
+    z-index: 20;
   }
 
   .skill-sticker--wide {
-    width: 100% !important;
-    min-height: 80px;
-    grid-column: 1 / -1;
-  }
-
-  /* Hide tape decorations on mobile */
-  .skill-sticker .sticker-tape {
-    display: none;
+    width: auto !important;
+    max-width: 100%;
+    flex: 0 0 95%;
   }
 
   .sticker-label {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 900;
   }
 
   .sticker-category {
@@ -2792,21 +2846,21 @@ body.menu-open #menu-overlay {
     font-size: 9vw;
   }
 
-  /* Skills — single column on very small screens */
+  /* Skills — tighten wall on very small screens */
   .skills-wall {
-    grid-template-columns: 1fr;
-    padding: 0.75rem;
-    gap: 0.75rem;
+    padding: 1rem 0.5rem 1.5rem;
+    gap: 0.4rem;
   }
 
   .skill-sticker {
-    width: 100%;
-    min-height: 80px;
-    padding: 0.85rem;
+    min-width: 100px;
+    max-width: 47%;
+    min-height: 70px;
+    padding: 0.75rem 0.5rem;
   }
 
   .skill-name {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 
   /* Timeline */
