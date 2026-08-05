@@ -1841,41 +1841,106 @@ body.menu-open #menu-overlay {
   gap: 2rem;
   padding: var(--space-lg);
 
-  /* ── Wooden corkboard ── */
-  background-color: #8B6914;
+  /* ── Dense Realistic Wood Board ── */
+  background-color: #5c3310;
   background-image:
-    /* fine grain noise dots — simulates cork texture */
-    radial-gradient(circle at 20% 35%, rgba(255,220,130,0.08) 1px, transparent 1px),
-    radial-gradient(circle at 75% 65%, rgba(90,50,10,0.12) 1px, transparent 1px),
-    radial-gradient(circle at 50% 20%, rgba(200,160,80,0.06) 1px, transparent 1px),
-    /* wood grain streaks */
-    repeating-linear-gradient(
-      92deg,
-      transparent,
-      transparent 18px,
-      rgba(100,60,10,0.06) 18px,
-      rgba(100,60,10,0.06) 36px
+    /* Knot 1 — dark eye-shaped ring */
+    radial-gradient(ellipse 18px 12px at 15% 28%, rgba(30,12,4,0.55) 0%, rgba(80,40,10,0.25) 50%, transparent 70%),
+    /* Knot 2 */
+    radial-gradient(ellipse 14px 9px at 82% 68%, rgba(25,10,3,0.5) 0%, rgba(70,35,8,0.2) 50%, transparent 70%),
+    /* Knot 3 small */
+    radial-gradient(ellipse 10px 7px at 55% 15%, rgba(28,11,3,0.45) 0%, rgba(60,30,8,0.18) 50%, transparent 70%),
+    /* Light highlight band — wood gloss */
+    linear-gradient(180deg,
+      rgba(220,160,80,0.07) 0%,
+      transparent 20%,
+      rgba(200,130,50,0.05) 50%,
+      transparent 80%,
+      rgba(180,100,30,0.06) 100%
     ),
+    /* Primary dense grain — tight dark lines */
     repeating-linear-gradient(
-      88deg,
-      transparent,
-      transparent 30px,
-      rgba(180,120,40,0.05) 30px,
-      rgba(180,120,40,0.05) 60px
+      91.5deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(30,10,2,0.18) 3px,
+      rgba(30,10,2,0.18) 4px,
+      transparent 4px,
+      transparent 9px,
+      rgba(20,8,1,0.12) 9px,
+      rgba(20,8,1,0.12) 10px
     ),
-    /* base warm cork gradient */
-    linear-gradient(160deg, #9e7620 0%, #7a5510 40%, #8B6914 70%, #6b4a0c 100%);
-  background-size: 4px 4px, 6px 6px, 8px 8px, 100% 100%, 100% 100%, 100% 100%;
+    /* Secondary grain — medium spacing */
+    repeating-linear-gradient(
+      90.8deg,
+      transparent 0px,
+      transparent 12px,
+      rgba(180,100,30,0.1) 12px,
+      rgba(180,100,30,0.1) 14px,
+      transparent 14px,
+      transparent 28px,
+      rgba(100,50,10,0.14) 28px,
+      rgba(100,50,10,0.14) 30px
+    ),
+    /* Wide grain bands — like annual rings */
+    repeating-linear-gradient(
+      89.5deg,
+      transparent 0px,
+      transparent 40px,
+      rgba(40,18,4,0.09) 40px,
+      rgba(40,18,4,0.09) 44px,
+      transparent 44px,
+      transparent 80px,
+      rgba(200,140,60,0.06) 80px,
+      rgba(200,140,60,0.06) 83px
+    ),
+    /* Slight diagonal drift to break uniformity */
+    repeating-linear-gradient(
+      93deg,
+      transparent 0px,
+      transparent 60px,
+      rgba(15,6,1,0.07) 60px,
+      rgba(15,6,1,0.07) 62px
+    ),
+    /* Deep walnut base — dark rich wood */
+    linear-gradient(175deg,
+      #6b3d15 0%,
+      #4a2609 20%,
+      #5c3310 45%,
+      #3e2008 65%,
+      #5a3012 80%,
+      #3c1e07 100%
+    );
 
-  /* Board frame */
-  border: 6px solid #3d2406;
-  outline: 2px solid rgba(255,200,100,0.15);
-  border-radius: 4px;
+  background-size:
+    100% 100%, 100% 100%, 100% 100%,  /* knots + gloss */
+    100% 100%,                          /* highlight band */
+    100% 100%,                          /* primary grain */
+    100% 100%,                          /* secondary grain */
+    100% 100%,                          /* wide bands */
+    100% 100%,                          /* diagonal drift */
+    100% 100%;                          /* base */
+
+  /* Thick dark wood frame — like a real mounted board */
+  border: 10px solid #261204;
+  border-top-color: #3a1c08;
+  border-left-color: #3a1c08;
+  border-bottom-color: #1a0d03;
+  border-right-color: #1a0d03;
+  border-radius: 3px;
+  outline: 1px solid rgba(255,180,80,0.1);
+
   box-shadow:
-    inset 0 2px 8px rgba(0,0,0,0.4),       /* inner depth */
-    inset 0 -2px 6px rgba(255,200,100,0.08),
-    0 12px 40px rgba(0,0,0,0.6),            /* wall shadow beneath board */
-    0 4px 12px rgba(0,0,0,0.4);
+    /* inner edge shadow — board depth */
+    inset 0 0 30px rgba(0,0,0,0.6),
+    inset 4px 4px 12px rgba(0,0,0,0.4),
+    inset -4px -4px 12px rgba(0,0,0,0.35),
+    /* subtle inner top glow — light catching the wood */
+    inset 0 1px 0 rgba(220,160,80,0.12),
+    /* outer wall drop shadow — mounted on dark wall */
+    0 20px 60px rgba(0,0,0,0.8),
+    0 8px 20px rgba(0,0,0,0.5),
+    6px 6px 0 rgba(0,0,0,0.3);
 }
 
 .skill-sticker {
