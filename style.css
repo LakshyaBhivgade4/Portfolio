@@ -1840,33 +1840,12 @@ body.menu-open #menu-overlay {
   align-items: center;
   gap: 2rem;
   padding: var(--space-lg);
-
-  /* ── Real Wood Texture ── */
-  background-image: url('wood_texture.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  /* Thick dark wood frame */
-  border: 10px solid #261204;
-  border-top-color: #3a1c08;
-  border-left-color: #3a1c08;
-  border-bottom-color: #1a0d03;
-  border-right-color: #1a0d03;
-  border-radius: 3px;
-
-  box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.5),
-    inset 4px 4px 16px rgba(0,0,0,0.4),
-    inset -4px -4px 16px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(220,160,80,0.1),
-    0 20px 60px rgba(0,0,0,0.8),
-    0 8px 20px rgba(0,0,0,0.5),
-    6px 6px 0 rgba(0,0,0,0.3);
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 50px 50px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
-
-
-
 
 .skill-sticker {
   width: 180px;
@@ -2008,35 +1987,50 @@ body.menu-open #menu-overlay {
   margin-bottom: var(--space-lg);
 }
 
-/* CREATIONS title — stands out: solid lime fill + glow (others are outlined) */
+/* CREATIONS title — enhanced themed highlight */
 .creations-title.section-title {
   -webkit-text-stroke: 0;
-  color: var(--color-accent);                 /* solid lime — vs all other titles which are transparent/outlined */
+  color: #0a0a0a;                           /* deep black text */
   background: none;
   display: inline-block;
   position: relative;
-  font-style: normal;
-  letter-spacing: inherit;
-  text-shadow:
-    0 0 20px rgba(205, 255, 0, 0.6),
-    0 0 60px rgba(205, 255, 0, 0.25),
-    0 0 120px rgba(205, 255, 0, 0.1);
+  padding: 0.05em 0.3em;
+  line-height: 1;
+  z-index: 0;
+  /* Slight italic punch */
+  font-style: italic;
+  letter-spacing: -0.02em;
 }
 
-/* Thin lime underline accent beneath the word */
+/* The lime brush-stroke background — skewed & glowing */
 .creations-title.section-title::before {
   content: '';
   position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--color-accent);
-  box-shadow: 0 0 12px var(--color-accent), 0 0 30px rgba(205,255,0,0.4);
+  inset: 0 -0.05em;
+  background: linear-gradient(105deg, #e8ff40 0%, #cdff00 40%, #aadd00 100%);
+  transform: skewX(-4deg) scaleX(1.02);
+  z-index: -1;
+  box-shadow:
+    0 0 30px rgba(205, 255, 0, 0.5),
+    0 0 80px rgba(205, 255, 0, 0.2),
+    4px 4px 0px rgba(0, 0, 0, 0.4);
 }
 
+/* CRT scanlines overlay on the lime block */
 .creations-title.section-title::after {
-  display: none;
+  content: '';
+  position: absolute;
+  inset: 0 -0.05em;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  transform: skewX(-4deg) scaleX(1.02);
+  z-index: 1;
+  pointer-events: none;
 }
 
 
@@ -2793,15 +2787,7 @@ body.menu-open #menu-overlay {
     gap: 0.85rem;
     padding: 2.5rem 1rem 3rem;
     min-height: auto;
-    background: #8B6914;
-    background-image:
-      radial-gradient(ellipse at 15% 20%, rgba(180,130,60,0.4) 0%, transparent 45%),
-      radial-gradient(ellipse at 85% 75%, rgba(100,65,20,0.35) 0%, transparent 45%),
-      radial-gradient(ellipse at 50% 50%, rgba(150,100,40,0.2) 0%, transparent 70%),
-      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="6" height="6"><rect width="6" height="6" fill="%23956b1a"/><circle cx="1" cy="1" r="0.7" fill="%23b07820" opacity="0.4"/><circle cx="4" cy="3" r="0.5" fill="%237a5510" opacity="0.3"/><circle cx="2" cy="5" r="0.6" fill="%23c08825" opacity="0.25"/></svg>');
-    box-shadow: inset 0 0 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.3);
-    border: 4px solid #5a3e0a;
-    border-radius: 4px;
+    background: var(--color-bg);
   }
 
   .skill-sticker {
@@ -2816,24 +2802,11 @@ body.menu-open #menu-overlay {
     position: relative;
   }
 
-  /* Thumbtack pin dot at top of each sticker */
+  /* Thumbtack pin — removed with board */
   .skill-sticker::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #ff6b6b, #cc0000);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,200,200,0.4);
-    z-index: 2;
+    display: none;
   }
 
-  /* Vary pin colors by position */
-  .skill-sticker:nth-child(3n)::before  { background: radial-gradient(circle at 35% 35%, #ffdd44, #cc9900); }
-  .skill-sticker:nth-child(3n+2)::before { background: radial-gradient(circle at 35% 35%, #77ccff, #0055bb); }
 
   /* Remove CSS rotation vars since JS handles it */
   .skill-sticker:nth-child(1),
