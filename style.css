@@ -1987,18 +1987,50 @@ body.menu-open #menu-overlay {
   margin-bottom: var(--space-lg);
 }
 
-/* CREATIONS title — highlighter marker effect */
+/* CREATIONS title — enhanced themed highlight */
 .creations-title.section-title {
-  -webkit-text-stroke: 0;                          /* remove outline style */
-  color: #0a0a0a;                                  /* solid black text */
-  background: linear-gradient(135deg, #d4ff00 0%, #cdff00 50%, #b8f000 100%);
+  -webkit-text-stroke: 0;
+  color: #0a0a0a;                           /* deep black text */
+  background: none;
   display: inline-block;
-  padding: 0.05em 0.25em;
-  line-height: 1;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
   position: relative;
-  mix-blend-mode: normal;
+  padding: 0.05em 0.3em;
+  line-height: 1;
+  z-index: 0;
+  /* Slight italic punch */
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+/* The lime brush-stroke background — skewed & glowing */
+.creations-title.section-title::before {
+  content: '';
+  position: absolute;
+  inset: 0 -0.05em;
+  background: linear-gradient(105deg, #e8ff40 0%, #cdff00 40%, #aadd00 100%);
+  transform: skewX(-4deg) scaleX(1.02);
+  z-index: -1;
+  box-shadow:
+    0 0 30px rgba(205, 255, 0, 0.5),
+    0 0 80px rgba(205, 255, 0, 0.2),
+    4px 4px 0px rgba(0, 0, 0, 0.4);
+}
+
+/* CRT scanlines overlay on the lime block */
+.creations-title.section-title::after {
+  content: '';
+  position: absolute;
+  inset: 0 -0.05em;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  transform: skewX(-4deg) scaleX(1.02);
+  z-index: 1;
+  pointer-events: none;
 }
 
 
