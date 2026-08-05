@@ -1987,50 +1987,35 @@ body.menu-open #menu-overlay {
   margin-bottom: var(--space-lg);
 }
 
-/* CREATIONS title — enhanced themed highlight */
+/* CREATIONS title — stands out: solid lime fill + glow (others are outlined) */
 .creations-title.section-title {
   -webkit-text-stroke: 0;
-  color: #0a0a0a;                           /* deep black text */
+  color: var(--color-accent);                 /* solid lime — vs all other titles which are transparent/outlined */
   background: none;
   display: inline-block;
   position: relative;
-  padding: 0.05em 0.3em;
-  line-height: 1;
-  z-index: 0;
-  /* Slight italic punch */
-  font-style: italic;
-  letter-spacing: -0.02em;
+  font-style: normal;
+  letter-spacing: inherit;
+  text-shadow:
+    0 0 20px rgba(205, 255, 0, 0.6),
+    0 0 60px rgba(205, 255, 0, 0.25),
+    0 0 120px rgba(205, 255, 0, 0.1);
 }
 
-/* The lime brush-stroke background — skewed & glowing */
+/* Thin lime underline accent beneath the word */
 .creations-title.section-title::before {
   content: '';
   position: absolute;
-  inset: 0 -0.05em;
-  background: linear-gradient(105deg, #e8ff40 0%, #cdff00 40%, #aadd00 100%);
-  transform: skewX(-4deg) scaleX(1.02);
-  z-index: -1;
-  box-shadow:
-    0 0 30px rgba(205, 255, 0, 0.5),
-    0 0 80px rgba(205, 255, 0, 0.2),
-    4px 4px 0px rgba(0, 0, 0, 0.4);
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent), 0 0 30px rgba(205,255,0,0.4);
 }
 
-/* CRT scanlines overlay on the lime block */
 .creations-title.section-title::after {
-  content: '';
-  position: absolute;
-  inset: 0 -0.05em;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.08) 3px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
-  transform: skewX(-4deg) scaleX(1.02);
-  z-index: 1;
-  pointer-events: none;
+  display: none;
 }
 
 
