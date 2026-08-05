@@ -582,7 +582,141 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-// 14. Contact Form — sendMessage (global scope for onsubmit)
+// 15. Quick Nav — smooth scroll
+document.querySelectorAll('.nav-quicklink').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// 16. Kali.AI Floating Terminal Widget
+(function() {
+    const widget  = document.getElementById('kali-widget');
+    const output  = document.getElementById('kali-output');
+    const typing  = document.getElementById('kali-typing');
+    const closeBtn = document.getElementById('kali-close');
+    const minBtn   = document.getElementById('kali-minimise');
+    if (!widget || !output || !typing) return;
+
+    const commands = [
+        { cmd: 'nmap -sV -O 192.168.1.0/24', lines: [
+            { t: 'out', v: 'Starting Nmap 7.94 ( https://nmap.org )' },
+            { t: 'out', v: 'Scanning 256 hosts...' },
+            { t: 'ok',  v: 'Host: 192.168.1.1  Ports: 22/open/tcp  80/open/tcp' },
+            { t: 'warn',v: 'Host: 192.168.1.42 Ports: 443/open/tcp  3306/open/tcp' },
+            { t: 'ok',  v: 'Nmap done: 3 hosts up in 4.21s' },
+        ]},
+        { cmd: 'python3 train_model.py --epochs 50', lines: [
+            { t: 'ai',  v: '[AI/ML] Loading dataset: cybersec_threats.csv' },
+            { t: 'ai',  v: 'Epoch 01/50 ▓▓░░░░░░░░ loss: 0.8821  acc: 0.61' },
+            { t: 'ai',  v: 'Epoch 25/50 ▓▓▓▓▓░░░░░ loss: 0.3204  acc: 0.87' },
+            { t: 'ai',  v: 'Epoch 50/50 ▓▓▓▓▓▓▓▓▓▓ loss: 0.0891  acc: 0.97' },
+            { t: 'ok',  v: '✓ Model saved → threat_classifier_v2.h5' },
+        ]},
+        { cmd: 'msfconsole -q -x "use exploit/ms17_010"', lines: [
+            { t: 'warn',v: '[*] Loading Metasploit Framework 6.3...' },
+            { t: 'out', v: 'msf6 > use exploit/windows/smb/ms17_010_eternalblue' },
+            { t: 'out', v: 'msf6 exploit > set RHOSTS 192.168.1.42' },
+            { t: 'out', v: 'msf6 exploit > set PAYLOAD windows/x64/shell_reverse_tcp' },
+            { t: 'ok',  v: '[+] Session 1 opened → 192.168.1.42:445' },
+        ]},
+        { cmd: 'python3 -c "import torch; print(torch.cuda.is_available())"', lines: [
+            { t: 'ai',  v: 'True' },
+            { t: 'ai',  v: 'CUDA Device: NVIDIA GeForce RTX 3060' },
+            { t: 'ai',  v: 'VRAM: 6144 MiB  |  CUDA 12.1  |  cuDNN 8.9' },
+        ]},
+        { cmd: 'aircrack-ng capture.cap -w /usr/share/wordlists/rockyou.txt', lines: [
+            { t: 'out', v: 'Opening capture.cap...' },
+            { t: 'out', v: 'Testing keys: 12,354 / 14,344,391' },
+            { t: 'warn',v: '[KEY FOUND!] → P4ssw0rd_2024' },
+            { t: 'ok',  v: 'Master Key: 3A 9F 2C 01 B8 44 ... ' },
+        ]},
+        { cmd: 'python3 neural_net.py --visualise', lines: [
+            { t: 'ai',  v: '[AI/ML] Building neural architecture...' },
+            { t: 'ai',  v: 'Input  → [Dense 784]' },
+            { t: 'ai',  v: '        → [Dense 256 ReLU]' },
+            { t: 'ai',  v: '        → [Dropout 0.4]' },
+            { t: 'ai',  v: '        → [Dense 10 Softmax]' },
+            { t: 'ok',  v: 'Accuracy: 99.1%  |  Params: 235,146' },
+        ]},
+        { cmd: 'hashcat -m 0 hashes.txt rockyou.txt --status', lines: [
+            { t: 'out', v: 'Session: hashcat  Status: Running' },
+            { t: 'out', v: 'Speed: 4,521.3 MH/s  Progress: 38%' },
+            { t: 'warn',v: 'Cracked: admin:sha1$abc123' },
+            { t: 'ok',  v: 'Recovered 3/7 hashes' },
+        ]},
+    ];
+
+    let cmdIndex  = 0;
+    let lineIndex = 0;
+    let charIndex = 0;
+    let outputLines = [];
+    const MAX_LINES = 5;
+
+    function addOutputLine(type, text) {
+        const el = document.createElement('div');
+        el.className = `kali-line kali-line--${type}`;
+        el.textContent = text;
+        outputLines.push(el);
+        if (outputLines.length > MAX_LINES) {
+            outputLines.shift().remove();
+        }
+        output.appendChild(el);
+    }
+
+    function typeCommand(cmd, done) {
+        typing.textContent = '';
+        charIndex = 0;
+        const interval = setInterval(() => {
+            typing.textContent = cmd.slice(0, ++charIndex);
+            if (charIndex >= cmd.length) {
+                clearInterval(interval);
+                setTimeout(done, 300);
+            }
+        }, 35);
+    }
+
+    function runLines(lines, done) {
+        if (lineIndex >= lines.length) {
+            lineIndex = 0;
+            setTimeout(done, 1200);
+            return;
+        }
+        const line = lines[lineIndex++];
+        addOutputLine(line.t, line.v);
+        setTimeout(() => runLines(lines, done), 600);
+    }
+
+    function runNext() {
+        const entry = commands[cmdIndex % commands.length];
+        cmdIndex++;
+        lineIndex = 0;
+        addOutputLine('cmd', '$ ' + entry.cmd);
+        typing.textContent = '';
+        typeCommand(entry.cmd, () => {
+            typing.textContent = '';
+            runLines(entry.lines, runNext);
+        });
+    }
+
+    // Start after 2s
+    setTimeout(runNext, 2000);
+
+    // Close button
+    closeBtn && closeBtn.addEventListener('click', () => {
+        widget.classList.add('kali-hidden');
+    });
+
+    // Minimise button
+    minBtn && minBtn.addEventListener('click', () => {
+        widget.classList.toggle('kali-minimised');
+    });
+})();
+
+
+// 17. Contact Form — sendMessage (global scope for onsubmit)
 async function sendMessage(e) {
     e.preventDefault();
     const name = document.getElementById('msg-name').value.trim();
@@ -618,29 +752,28 @@ async function sendMessage(e) {
         return false;
     }
 
-    // Prepare data as URL-encoded string — required for Google Apps Script (FormData fails with no-cors)
-    const params = new URLSearchParams();
-    params.append('Name', name);
-    params.append('Email', email);
-    params.append('Message', body);
-    params.append('Timestamp', new Date().toLocaleString());
+    // Build URL with params — GET is the most reliable method for Google Apps Script under no-cors
+    const params = new URLSearchParams({
+        Name: name,
+        Email: email,
+        Message: body,
+        Timestamp: new Date().toLocaleString()
+    });
 
     // Update UI to loading state
-    resp.style.color = '#ffbd2e'; // Yellow for processing
+    resp.style.color = '#ffbd2e';
     resp.textContent = '> TRANSMITTING TO SECURE SERVER...';
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.5';
 
     try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            body: params,
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        await fetch(`${GOOGLE_SCRIPT_URL}?${params.toString()}`, {
+            method: 'GET',
+            mode: 'no-cors'
         });
 
         // no-cors hides response — assume success if no network error thrown
-        resp.style.color = '#28c840'; // Green for success
+        resp.style.color = '#28c840';
         resp.textContent = '> TRANSMISSION COMPLETE :: Data safely stored. ✓';
         form.reset();
 

@@ -65,6 +65,29 @@
     <div id="cursor-follower" aria-hidden="true"></div>
 
     <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- KALI.AI FLOATING TERMINAL WIDGET                        -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div id="kali-widget" aria-label="Interactive Kali Linux & AI terminal">
+        <div class="kali-widget-bar">
+            <div class="kali-dots">
+                <span class="kali-dot kali-dot--red" id="kali-close" title="Close"></span>
+                <span class="kali-dot kali-dot--yellow" id="kali-minimise" title="Minimise"></span>
+                <span class="kali-dot kali-dot--green"></span>
+            </div>
+            <span class="kali-title">root@kali-lb:~# <span class="kali-title-blink">▮</span></span>
+            <span class="kali-badge">LIVE</span>
+        </div>
+        <div class="kali-body" id="kali-body">
+            <div class="kali-output" id="kali-output"></div>
+            <div class="kali-input-line">
+                <span class="kali-prompt">root@kali-lb:~#</span>
+                <span class="kali-cursor-line" id="kali-typing"></span>
+                <span class="kali-blink">▮</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
     <!-- NAVIGATION                                              -->
     <!-- ═══════════════════════════════════════════════════════ -->
     <nav id="nav">
@@ -77,6 +100,13 @@
             <span class="nav-status" id="nav-status">SYS.ONLINE</span>
             <span class="nav-divider">|</span>
             <span class="nav-time" id="nav-time"></span>
+        </div>
+        <!-- Quick Nav Links -->
+        <div class="nav-quicklinks">
+            <a href="#about" class="nav-quicklink">ABOUT</a>
+            <a href="#skills" class="nav-quicklink">SKILLS</a>
+            <a href="#creations" class="nav-quicklink">CREATIONS</a>
+            <a href="#footer" class="nav-quicklink nav-quicklink--cta">CONTACT</a>
         </div>
         <button class="nav-menu-btn" id="menu-toggle" data-magnetic aria-label="Toggle navigation menu">
             <span class="menu-btn-line"></span>
