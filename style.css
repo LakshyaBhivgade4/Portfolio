@@ -930,7 +930,7 @@ body.menu-open #menu-overlay {
 /* Identity */
 .identity-layout {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: 1.6fr 0.7fr;
   gap: var(--space-lg);
   align-items: center;
 }
@@ -948,6 +948,8 @@ body.menu-open #menu-overlay {
     0 0 40px rgba(205, 255, 0, 0.04);
   transform: rotate(2deg);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+  max-width: 260px;
+  margin-left: auto;
 }
 
 .identity-photo:hover {
