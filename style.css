@@ -2149,6 +2149,32 @@ body.menu-open #menu-overlay {
   animation: blink 1s step-end infinite;
 }
 
+.status-dot--live {
+  background-color: #28c840;
+  animation: none;
+  box-shadow: 0 0 6px #28c840;
+}
+
+/* Project tech tag pills */
+.poster-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.8rem;
+}
+
+.poster-tag {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(205, 255, 0, 0.25);
+  color: var(--color-accent);
+  background: rgba(205, 255, 0, 0.05);
+  text-transform: uppercase;
+}
+
+
 /* Specific Poster Effects */
 .creation-poster--01 .poster-spray {
   position: absolute;
