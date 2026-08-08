@@ -2044,22 +2044,26 @@ body.menu-open #menu-overlay {
 
 .creation-poster {
   background-color: #0f0f0f;
-  border: 1px solid var(--color-gray);
+  border: 1px solid rgba(205, 255, 0, 0.2);
   overflow: hidden;
   position: relative;
   transition: transform 0.4s var(--easing), border-color 0.4s var(--easing), box-shadow 0.4s var(--easing);
   box-shadow:
-    0 0 20px rgba(205, 255, 0, 0.06),
-    0 4px 30px rgba(0, 0, 0, 0.4);
+    0 0 15px rgba(205, 255, 0, 0.12),
+    0 0 40px rgba(205, 255, 0, 0.07),
+    0 0 80px rgba(205, 255, 0, 0.04),
+    inset 0 0 20px rgba(205, 255, 0, 0.02);
 }
 
 .creation-poster:hover {
   border-color: var(--color-accent);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow:
-    0 0 30px rgba(205, 255, 0, 0.18),
-    0 0 60px rgba(205, 255, 0, 0.08),
-    0 8px 40px rgba(0, 0, 0, 0.5);
+    0 0 25px rgba(205, 255, 0, 0.35),
+    0 0 60px rgba(205, 255, 0, 0.18),
+    0 0 120px rgba(205, 255, 0, 0.08),
+    inset 0 0 30px rgba(205, 255, 0, 0.04),
+    0 12px 50px rgba(0, 0, 0, 0.6);
 }
 
 .poster-window-chrome {
