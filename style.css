@@ -2042,183 +2042,69 @@ body.menu-open #menu-overlay {
   gap: 2rem;
 }
 
-/* ═══════════════════════════════════════════════════════ */
-/* 11. CREATIONS — Gen-Z Project Cards                     */
-/* ═══════════════════════════════════════════════════════ */
-
-.creations-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 1.5rem;
-}
-
 .creation-poster {
-  background: #0c0c0c;
-  border: 1px solid rgba(255,255,255,0.06);
-  overflow: visible;
+  background-color: #0f0f0f;
+  border: 1px solid var(--color-gray);
+  overflow: hidden;
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  cursor: pointer;
+  transition: transform 0.4s var(--easing), border-color 0.4s var(--easing);
 }
 
-/* Ghost offset border — shifts on hover */
-.creation-poster::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid transparent;
-  transform: translate(6px, 6px);
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-              border-color 0.4s ease;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Noise grain texture */
-.creation-poster::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  opacity: 0.4;
-  z-index: 1;
-}
-
-/* Accent per card — explicit colors for consistency */
-.creation-poster--01 { --card-accent: #cdff00; --card-accent-glow: rgba(205,255,0,0.18); --card-accent-bg: rgba(205,255,0,0.07); --card-accent-border: rgba(205,255,0,0.3); }
-.creation-poster--02 { --card-accent: #77ccff; --card-accent-glow: rgba(119,204,255,0.18); --card-accent-bg: rgba(119,204,255,0.07); --card-accent-border: rgba(119,204,255,0.3); }
-.creation-poster--03 { --card-accent: #ff77aa; --card-accent-glow: rgba(255,119,170,0.18); --card-accent-bg: rgba(255,119,170,0.07); --card-accent-border: rgba(255,119,170,0.3); }
-
-.creation-poster::before { border-color: var(--card-accent); }
-
-/* Left accent bar */
-.poster-window-chrome {
-  height: 3px;
-  background: var(--card-accent, var(--color-accent));
-  display: block;
-  position: relative;
-  box-shadow: 0 0 16px var(--card-accent, var(--color-accent));
-}
-
-/* Hover lift with glow */
 .creation-poster:hover {
-  transform: translate(-5px, -5px);
-  box-shadow:
-    8px 8px 0 var(--card-accent),
-    0 0 50px var(--card-accent-glow);
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
 }
 
-.creation-poster:hover::before {
-  transform: translate(0px, 0px);
-  opacity: 0;
+.poster-window-chrome {
+  height: 24px;
+  background-color: var(--color-gray);
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 6px;
+  border-bottom: 1px solid var(--color-graphite);
 }
 
 .poster-inner {
-  padding: 1.8rem;
+  padding: 2rem;
   position: relative;
-  min-height: 300px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
-  z-index: 2;
 }
 
-/* Giant faded number watermark */
 .poster-number {
-  font-family: var(--font-sans);
-  font-size: 8rem;
-  font-weight: 900;
-  color: var(--card-accent, var(--color-accent));
-  opacity: 0.04;
+  font-family: var(--font-pixel);
+  font-size: 5rem;
+  color: var(--color-text);
+  opacity: 0.06;
   position: absolute;
-  bottom: -1rem;
-  right: -0.5rem;
+  top: 1rem;
+  right: 1rem;
   line-height: 1;
-  letter-spacing: -0.05em;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 0;
 }
 
-.creation-poster:hover .poster-number { opacity: 0.08; }
-
-/* Small index badge top-left */
-.poster-index-badge {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  color: var(--card-accent);
-  background: var(--card-accent-bg);
-  border: 1px solid var(--card-accent-border);
-  padding: 0.2rem 0.5rem;
-  display: inline-block;
-  margin-bottom: 1rem;
-  width: fit-content;
-}
-
-/* Title — bold with glitch color shadow */
 .poster-title {
   font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: 1.3rem;
-  line-height: 1.2;
-  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
   position: relative;
   z-index: 2;
-  color: #fff;
-  text-shadow: 2px 2px 0 var(--card-accent-bg);
-  transition: text-shadow 0.3s ease;
 }
 
-.creation-poster:hover .poster-title {
-  text-shadow:
-    3px 3px 0 var(--card-accent-border),
-    -1px -1px 0 rgba(255,80,80,0.12);
-}
-
-/* Description */
 .poster-desc {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 1rem;
-  position: relative;
-  z-index: 2;
-  flex: 1;
-}
-
-/* Tech pills */
-.poster-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  opacity: 0.5;
+  margin-bottom: 2rem;
   position: relative;
   z-index: 2;
 }
 
-.poster-tag {
-  font-family: var(--font-mono);
-  font-size: 0.48rem;
-  letter-spacing: 0.15em;
-  padding: 0.25rem 0.6rem;
-  border: 1px solid var(--card-accent-border);
-  color: var(--card-accent);
-  background: var(--card-accent-bg);
-  text-transform: uppercase;
-  transition: background 0.2s;
-}
-
-.creation-poster:hover .poster-tag {
-  background: var(--card-accent-glow);
-}
-
-/* CTA Links — chunky button style */
 .poster-links {
   display: flex;
-  gap: 0.6rem;
+  gap: 1rem;
   margin-top: auto;
   position: relative;
   z-index: 2;
@@ -2226,45 +2112,33 @@ body.menu-open #menu-overlay {
 
 .poster-link {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  color: #0a0a0a;
-  background: var(--card-accent);
-  padding: 0.4rem 0.9rem;
-  text-transform: uppercase;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
-  font-weight: 700;
-  border: none;
+  font-size: 0.8rem;
+  color: #888;
+  transition: color 0.3s ease;
 }
 
 .poster-link:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
-  color: #0a0a0a;
+  color: var(--color-text);
 }
 
 .poster-link--disabled {
   pointer-events: none;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.25);
+  opacity: 0.3;
 }
 
-.link-bracket { display: none; }
+.link-bracket {
+  color: var(--color-accent);
+}
 
-/* Status bar */
 .poster-status {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.8rem;
+  margin-top: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.35);
-  position: relative;
-  z-index: 2;
+  font-size: 0.7rem;
+  color: var(--color-text);
+  opacity: 0.7;
 }
 
 .status-dot {
@@ -2281,54 +2155,57 @@ body.menu-open #menu-overlay {
   box-shadow: 0 0 6px #28c840;
 }
 
-/* CRT scanlines on poster-inner */
-.poster-inner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(255,255,255,0.013) 3px,
-    rgba(255,255,255,0.013) 4px
-  );
-  pointer-events: none;
-  z-index: 0;
+/* Project tech tag pills */
+.poster-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.8rem;
 }
 
-/* Poster 01 accent spray glow */
+.poster-tag {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(205, 255, 0, 0.25);
+  color: var(--color-accent);
+  background: rgba(205, 255, 0, 0.05);
+  text-transform: uppercase;
+}
+
+
+/* Specific Poster Effects */
 .creation-poster--01 .poster-spray {
   position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle, #cdff00 0%, transparent 70%);
-  opacity: 0.06;
-  filter: blur(25px);
-  pointer-events: none;
+  top: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+  opacity: 0.1;
+  filter: blur(20px);
 }
 
-/* Poster 02 — cyan bottom glow */
 .creation-poster--02 .poster-rip {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 80px;
-  background: radial-gradient(ellipse at 50% 100%, rgba(119,204,255,0.08) 0%, transparent 70%);
-  pointer-events: none;
+  height: 20px;
+  background-color: var(--color-gray);
+  clip-path: polygon(0% 100%, 5% 0%, 10% 100%, 15% 0%, 20% 100%, 25% 0%, 30% 100%, 35% 0%, 40% 100%, 45% 0%, 50% 100%, 55% 0%, 60% 100%, 65% 0%, 70% 100%, 75% 0%, 80% 100%, 85% 0%, 90% 100%, 95% 0%, 100% 100%);
+  transform: translateY(50%);
+  opacity: 0.3;
 }
 
-/* Poster 03 — glitch on hover */
 .creation-poster--03:hover .poster-title {
-  animation: glitch 0.4s linear infinite;
+  animation: glitch 0.3s linear infinite;
 }
 
-.blink-cursor { animation: blink 1s step-end infinite; }
-
-
+.blink-cursor {
+  animation: blink 1s step-end infinite;
+}
 
 /* ═══════════════════════════════════════════════════════ */
 /* 12. FOOTER                                              */
@@ -2386,7 +2263,7 @@ body.menu-open #menu-overlay {
   text-align: left;
 }
 
-/* Contact Terminal - with dark green glow */
+/* Contact Terminal - Light Theme + dark green glow */
 .contact-terminal {
   width: 100%;
   border: 2px solid #1a1a1a;
@@ -2394,8 +2271,7 @@ body.menu-open #menu-overlay {
   box-shadow:
     8px 8px 0 rgba(0, 0, 0, 0.15),
     0 0 40px rgba(20, 120, 40, 0.18),
-    0 0 80px rgba(20, 120, 40, 0.08),
-   -4px -4px 30px rgba(10, 80, 20, 0.12);
+    0 0 80px rgba(20, 120, 40, 0.08);
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -2407,8 +2283,7 @@ body.menu-open #menu-overlay {
   box-shadow:
     8px 8px 0 rgba(0, 0, 0, 0.2),
     0 0 60px rgba(20, 140, 40, 0.28),
-    0 0 120px rgba(20, 120, 40, 0.12),
-   -4px -4px 40px rgba(10, 90, 20, 0.18);
+    0 0 120px rgba(20, 120, 40, 0.12);
 }
 
 .contact-terminal .retro-window-chrome {
