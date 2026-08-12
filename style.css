@@ -931,7 +931,7 @@ body.menu-open #menu-overlay {
 /* Identity */
 .identity-layout {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
   align-items: center;
 }
@@ -942,34 +942,94 @@ body.menu-open #menu-overlay {
 }
 
 .identity-photo {
-  border: 1px solid var(--color-graphite);
-  background-color: var(--color-near-black);
+  position: relative;
+  background-color: #080808;
+  border: 1px solid rgba(205, 255, 0, 0.3);
   box-shadow:
-    8px 8px 0px rgba(0, 0, 0, 0.6),
-    0 0 40px rgba(205, 255, 0, 0.04);
-  transform: rotate(2deg);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  max-width: 380px;
-  margin-left: auto;
+    0 0 0 4px rgba(205, 255, 0, 0.06),
+    0 0 40px rgba(205, 255, 0, 0.1),
+    0 0 80px rgba(205, 255, 0, 0.04),
+    12px 12px 0px rgba(0, 0, 0, 0.7);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  max-width: 420px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Corner bracket decorations */
+.identity-photo::before,
+.identity-photo::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  pointer-events: none;
+}
+.identity-photo::before {
+  top: -5px;
+  left: -5px;
+  border-top: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  box-shadow: -2px -2px 8px rgba(205,255,0,0.4);
+}
+.identity-photo::after {
+  bottom: -5px;
+  right: -5px;
+  border-bottom: 2px solid var(--color-accent);
+  border-right: 2px solid var(--color-accent);
+  box-shadow: 2px 2px 8px rgba(205,255,0,0.4);
 }
 
 .identity-photo:hover {
-  transform: rotate(0deg) scale(1.02);
+  transform: translateY(-6px);
   box-shadow:
-    12px 12px 0px rgba(0, 0, 0, 0.7),
-    0 0 60px rgba(205, 255, 0, 0.08);
+    0 0 0 4px rgba(205, 255, 0, 0.1),
+    0 0 60px rgba(205, 255, 0, 0.22),
+    0 0 120px rgba(205, 255, 0, 0.08),
+    16px 16px 0px rgba(0, 0, 0, 0.8);
 }
 
 .identity-img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
   display: block;
-  filter: grayscale(40%) contrast(1.1);
-  transition: filter 0.4s ease;
+  filter: grayscale(30%) contrast(1.1);
+  transition: filter 0.5s ease;
+  min-height: 380px;
+  background: linear-gradient(160deg, #111 0%, #0a0a0a 60%, #1a1a1a 100%);
 }
 
 .identity-photo:hover .identity-img {
-  filter: grayscale(0%) contrast(1.15);
+  filter: grayscale(0%) contrast(1.15) brightness(1.05);
+}
+
+/* Professional name label strip below photo */
+.photo-label {
+  padding: 0.85rem 1rem;
+  background: #070707;
+  border-top: 1px solid rgba(205, 255, 0, 0.15);
+}
+
+.photo-label-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--color-accent);
+  margin-bottom: 0.35rem;
+  text-shadow: 0 0 10px rgba(205, 255, 0, 0.35);
+}
+
+.photo-label-role {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .identity-word {
