@@ -390,15 +390,16 @@ body.menu-open .menu-btn-label {
 
 .nav-quicklink {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
   color: var(--color-text);
   text-decoration: none;
-  padding: 0.3rem 0.65rem;
+  padding: 0.4rem 0.8rem;
   border: 1px solid transparent;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-  opacity: 0.6;
+  opacity: 0.8;
   position: relative;
+  font-weight: 500;
 }
 
 .nav-quicklink::before {

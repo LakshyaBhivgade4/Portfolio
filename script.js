@@ -1,9 +1,9 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
     // 0. Preferences & Globals
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     
-    // 1. Initialization — GSAP ScrollTrigger (native scroll, no smooth-scroll library)
+    // 1. Initialization â€” GSAP ScrollTrigger (native scroll, no smooth-scroll library)
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
     }
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
     class TextScramble {
         constructor(el) {
             this.el = el;
-            this.chars = '!<>-_\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            this.chars = '!<>-_\/[]{}â€”=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             this.update = this.update.bind(this);
         }
         setText(newText) {
@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 8. Marquee runs via CSS animation only — no JS overhead
+    // 8. Marquee runs via CSS animation only â€” no JS overhead
 
     // 9. Skills Wall - Draggable Stickers
     const stickers = document.querySelectorAll(".skill-sticker");
@@ -465,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 12. CRT Screen Effects — lightweight flicker using CSS filter on an overlay
+    // 12. CRT Screen Effects â€” lightweight flicker using CSS filter on an overlay
     // Instead of changing opacity on the entire #main-content tree, we briefly flash the scanline overlay
     const scanlineOverlay = document.getElementById('scanline-overlay');
     if (scanlineOverlay && !prefersReducedMotion) {
@@ -548,11 +548,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 15. Random Philosophy Quote
     const quotes = [
-        { text: "The best way to predict the future is to create it.", author: "— ABRAHAM LINCOLN" },
-        { text: "Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.", author: "— MARK ZUCKERBERG" },
-        { text: "First, solve the problem. Then, write the code.", author: "— JOHN JOHNSON" },
-        { text: "The only way to do great work is to love what you do.", author: "— STEVE JOBS" },
-        { text: "Code is like humor. When you have to explain it, it's bad.", author: "— CORY HOUSE" }
+        { text: "The best way to predict the future is to create it.", author: "â€” ABRAHAM LINCOLN" },
+        { text: "Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.", author: "â€” MARK ZUCKERBERG" },
+        { text: "First, solve the problem. Then, write the code.", author: "â€” JOHN JOHNSON" },
+        { text: "The only way to do great work is to love what you do.", author: "â€” STEVE JOBS" },
+        { text: "Code is like humor. When you have to explain it, it's bad.", author: "â€” CORY HOUSE" }
     ];
     const quoteEl = document.getElementById('random-quote');
     const authorEl = document.getElementById('quote-author');
@@ -562,7 +562,7 @@ document.addEventListener("DOMContentLoaded", () => {
         authorEl.textContent = pick.author;
     }
 
-    // 16. Floating Resume — show after scrolling past dossier
+    // 16. Floating Resume â€” show after scrolling past dossier
     const floatingResume = document.getElementById('floating-resume');
     const aboutBio = document.querySelector('.about-bio');
     if (floatingResume && aboutBio) {
@@ -582,7 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-// 15. Quick Nav — smooth scroll
+// 15. Quick Nav â€” smooth scroll
 document.querySelectorAll('.nav-quicklink').forEach(link => {
     link.addEventListener('click', e => {
         e.preventDefault();
@@ -591,132 +591,10 @@ document.querySelectorAll('.nav-quicklink').forEach(link => {
     });
 });
 
-// 16. Kali.AI Floating Terminal Widget
-(function() {
-    const widget  = document.getElementById('kali-widget');
-    const output  = document.getElementById('kali-output');
-    const typing  = document.getElementById('kali-typing');
-    const closeBtn = document.getElementById('kali-close');
-    const minBtn   = document.getElementById('kali-minimise');
-    if (!widget || !output || !typing) return;
 
-    const commands = [
-        { cmd: 'nmap -sV -O 192.168.1.0/24', lines: [
-            { t: 'out', v: 'Starting Nmap 7.94 ( https://nmap.org )' },
-            { t: 'out', v: 'Scanning 256 hosts...' },
-            { t: 'ok',  v: 'Host: 192.168.1.1  Ports: 22/open/tcp  80/open/tcp' },
-            { t: 'warn',v: 'Host: 192.168.1.42 Ports: 443/open/tcp  3306/open/tcp' },
-            { t: 'ok',  v: 'Nmap done: 3 hosts up in 4.21s' },
-        ]},
-        { cmd: 'python3 train_model.py --epochs 50', lines: [
-            { t: 'ai',  v: '[AI/ML] Loading dataset: cybersec_threats.csv' },
-            { t: 'ai',  v: 'Epoch 01/50 ▓▓░░░░░░░░ loss: 0.8821  acc: 0.61' },
-            { t: 'ai',  v: 'Epoch 25/50 ▓▓▓▓▓░░░░░ loss: 0.3204  acc: 0.87' },
-            { t: 'ai',  v: 'Epoch 50/50 ▓▓▓▓▓▓▓▓▓▓ loss: 0.0891  acc: 0.97' },
-            { t: 'ok',  v: '✓ Model saved → threat_classifier_v2.h5' },
-        ]},
-        { cmd: 'msfconsole -q -x "use exploit/ms17_010"', lines: [
-            { t: 'warn',v: '[*] Loading Metasploit Framework 6.3...' },
-            { t: 'out', v: 'msf6 > use exploit/windows/smb/ms17_010_eternalblue' },
-            { t: 'out', v: 'msf6 exploit > set RHOSTS 192.168.1.42' },
-            { t: 'out', v: 'msf6 exploit > set PAYLOAD windows/x64/shell_reverse_tcp' },
-            { t: 'ok',  v: '[+] Session 1 opened → 192.168.1.42:445' },
-        ]},
-        { cmd: 'python3 -c "import torch; print(torch.cuda.is_available())"', lines: [
-            { t: 'ai',  v: 'True' },
-            { t: 'ai',  v: 'CUDA Device: NVIDIA GeForce RTX 3060' },
-            { t: 'ai',  v: 'VRAM: 6144 MiB  |  CUDA 12.1  |  cuDNN 8.9' },
-        ]},
-        { cmd: 'aircrack-ng capture.cap -w /usr/share/wordlists/rockyou.txt', lines: [
-            { t: 'out', v: 'Opening capture.cap...' },
-            { t: 'out', v: 'Testing keys: 12,354 / 14,344,391' },
-            { t: 'warn',v: '[KEY FOUND!] → P4ssw0rd_2024' },
-            { t: 'ok',  v: 'Master Key: 3A 9F 2C 01 B8 44 ... ' },
-        ]},
-        { cmd: 'python3 neural_net.py --visualise', lines: [
-            { t: 'ai',  v: '[AI/ML] Building neural architecture...' },
-            { t: 'ai',  v: 'Input  → [Dense 784]' },
-            { t: 'ai',  v: '        → [Dense 256 ReLU]' },
-            { t: 'ai',  v: '        → [Dropout 0.4]' },
-            { t: 'ai',  v: '        → [Dense 10 Softmax]' },
-            { t: 'ok',  v: 'Accuracy: 99.1%  |  Params: 235,146' },
-        ]},
-        { cmd: 'hashcat -m 0 hashes.txt rockyou.txt --status', lines: [
-            { t: 'out', v: 'Session: hashcat  Status: Running' },
-            { t: 'out', v: 'Speed: 4,521.3 MH/s  Progress: 38%' },
-            { t: 'warn',v: 'Cracked: admin:sha1$abc123' },
-            { t: 'ok',  v: 'Recovered 3/7 hashes' },
-        ]},
-    ];
+// 17. Contact Form â€” sendMessage (global scope for onsubmit)
 
-    let cmdIndex  = 0;
-    let lineIndex = 0;
-    let charIndex = 0;
-    let outputLines = [];
-    const MAX_LINES = 5;
-
-    function addOutputLine(type, text) {
-        const el = document.createElement('div');
-        el.className = `kali-line kali-line--${type}`;
-        el.textContent = text;
-        outputLines.push(el);
-        if (outputLines.length > MAX_LINES) {
-            outputLines.shift().remove();
-        }
-        output.appendChild(el);
-    }
-
-    function typeCommand(cmd, done) {
-        typing.textContent = '';
-        charIndex = 0;
-        const interval = setInterval(() => {
-            typing.textContent = cmd.slice(0, ++charIndex);
-            if (charIndex >= cmd.length) {
-                clearInterval(interval);
-                setTimeout(done, 300);
-            }
-        }, 35);
-    }
-
-    function runLines(lines, done) {
-        if (lineIndex >= lines.length) {
-            lineIndex = 0;
-            setTimeout(done, 1200);
-            return;
-        }
-        const line = lines[lineIndex++];
-        addOutputLine(line.t, line.v);
-        setTimeout(() => runLines(lines, done), 600);
-    }
-
-    function runNext() {
-        const entry = commands[cmdIndex % commands.length];
-        cmdIndex++;
-        lineIndex = 0;
-        addOutputLine('cmd', '$ ' + entry.cmd);
-        typing.textContent = '';
-        typeCommand(entry.cmd, () => {
-            typing.textContent = '';
-            runLines(entry.lines, runNext);
-        });
-    }
-
-    // Start after 2s
-    setTimeout(runNext, 2000);
-
-    // Close button
-    closeBtn && closeBtn.addEventListener('click', () => {
-        widget.classList.add('kali-hidden');
-    });
-
-    // Minimise button
-    minBtn && minBtn.addEventListener('click', () => {
-        widget.classList.toggle('kali-minimised');
-    });
-})();
-
-
-// 17. Contact Form — sendMessage (global scope for onsubmit)
+// 17. Contact Form â€” sendMessage (global scope for onsubmit)
 async function sendMessage(e) {
     e.preventDefault();
     const name = document.getElementById('msg-name').value.trim();
@@ -731,7 +609,7 @@ async function sendMessage(e) {
         return false;
     }
 
-    // 🔴 IMPORTANT: Paste your Google Apps Script Web App URL here 🔴
+    // ðŸ”´ IMPORTANT: Paste your Google Apps Script Web App URL here ðŸ”´
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8t0gizaTcGSDSWPRYY5vIPPKByxW9NKLCuUUtKoIPUuIB3IXz1cHKxcLA2vHcNuyqKw/exec"; 
 
     if (!GOOGLE_SCRIPT_URL) {
@@ -745,14 +623,14 @@ async function sendMessage(e) {
             resp.textContent = '> GOOGLE SHEET URL NOT SET :: falling back to mail client...';
             window.location.href = mailtoLink;
             setTimeout(() => {
-                resp.textContent = '> FALLBACK TRANSMISSION COMPLETE ✓';
+                resp.textContent = '> FALLBACK TRANSMISSION COMPLETE âœ“';
                 form.reset();
             }, 1500);
         }, 800);
         return false;
     }
 
-    // Build URL with params — GET is the most reliable method for Google Apps Script under no-cors
+    // Build URL with params â€” GET is the most reliable method for Google Apps Script under no-cors
     const params = new URLSearchParams({
         Name: name,
         Email: email,
@@ -772,9 +650,9 @@ async function sendMessage(e) {
             mode: 'no-cors'
         });
 
-        // no-cors hides response — assume success if no network error thrown
+        // no-cors hides response â€” assume success if no network error thrown
         resp.style.color = '#28c840';
-        resp.textContent = '> TRANSMISSION COMPLETE :: Data safely stored. ✓';
+        resp.textContent = '> TRANSMISSION COMPLETE :: Data safely stored. âœ“';
         form.reset();
 
     } catch (error) {
