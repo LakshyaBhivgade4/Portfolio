@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     // 0. Preferences & Globals
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
@@ -673,3 +673,37 @@ async function sendMessage(e) {
     }
     return false;
 }
+
+// ── STUDIO CATEGORY FILTER ──────────────────────────────────────────────────
+(function initStudioFilter() {
+    const btns  = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('#studio-gallery .studio-card');
+    if (!btns.length || !cards.length) return;
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.dataset.filter;
+
+            // Update button states
+            btns.forEach(b => {
+                b.classList.remove('filter-btn--active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('filter-btn--active');
+            btn.setAttribute('aria-selected', 'true');
+
+            // Show/hide cards
+            cards.forEach(card => {
+                const cat = card.dataset.category;
+                const show = filter === 'all' || cat === filter || cat === 'all';
+                if (show) {
+                    card.removeAttribute('data-hidden');
+                    card.style.animation = 'fadeInUp 0.4s ease forwards';
+                } else {
+                    card.setAttribute('data-hidden', '');
+                    card.style.animation = '';
+                }
+            });
+        });
+    });
+})();
